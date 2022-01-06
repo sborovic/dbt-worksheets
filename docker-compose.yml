@@ -1,0 +1,9 @@
+services:
+  flutter:
+    build: .
+    volumes:
+      - ./app:/home/developer/app
+    ports:
+      - 5555:5555
+    stdin_open: true
+    tty: true

@@ -24,10 +24,14 @@ RUN wget -O sdk-tools.zip https://dl.google.com/android/repository/commandlineto
 RUN unzip sdk-tools.zip && rm sdk-tools.zip
 RUN mkdir ./android-sdk/cmdline-tools/
 RUN mv cmdline-tools android-sdk/cmdline-tools/latest
-WORKDIR ./android-sdk/cmdline-tools/latest/bin
-RUN yes | ./sdkmanager --licenses
-RUN ./sdkmanager "platform-tools" "platforms;android-31" "build-tools;31.0.0"
-ENV PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin
+ENV PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools
+RUN yes | sdkmanager --licenses
+RUN sdkmanager "platform-tools" "platforms;android-31" "build-tools;31.0.0"
 RUN flutter doctor --android-licenses
 
-WORKDIR $APP_PATH
+# Run the script ....
+EXPOSE 5555
+
+# Create the Flutter app directory 
+WORKDIR $APP_PATH/app
+
