@@ -29,7 +29,8 @@ RUN yes | sdkmanager --licenses
 RUN sdkmanager "platform-tools" "platforms;android-31" "build-tools;31.0.0"
 RUN flutter doctor --android-licenses
 
-# Run the script ....
+# Copy the authorized adbkey
+COPY ./.adbkey $APP_PATH/.android/adbkey
 
 # Create the Flutter app directory 
 WORKDIR $APP_PATH/app
