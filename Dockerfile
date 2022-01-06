@@ -30,7 +30,6 @@ RUN sdkmanager "platform-tools" "platforms;android-31" "build-tools;31.0.0"
 RUN flutter doctor --android-licenses
 
 # Run the script ....
-EXPOSE 5555
 
 # Create the Flutter app directory 
 WORKDIR $APP_PATH/app
