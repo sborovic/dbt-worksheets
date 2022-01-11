@@ -1,4 +1,6 @@
+import 'package:app/db.dart';
 import 'package:app/module_menu.dart';
+import 'package:app/skills_list.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart' as Constants;
 
@@ -18,9 +20,12 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('DBT Beležnica')),
-        body: const ModuleMenu(
-          name: 'Mindfulness veštine', 
-          skillsGroup: Constants.SkillsGroups.mindfulness,
+        // body: const ModuleMenu(
+        //   name: 'Mindfulness veštine',
+        //   skillsGroup: Constants.SkillsGroups.mindfulness,
+        // ),
+        body: SkillsList(
+          skillNodes: getChildrenOf(2),
         ),
       ),
     );
