@@ -1,23 +1,24 @@
+import 'package:app/module_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:app/constants.dart' as Constants;
+void main() => runApp(const MyApp());
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() {
+    return _MyAppState();
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Welcome to Flutter',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body: const Center(
-          child: Text('Јеси ли козице или козицо?'),
-        ),
+        appBar: AppBar(title: const Text('DBT Beležnica')),
+        body: const ModuleMenu(Constants.SkillsGroups.mindfulnessList),
       ),
     );
   }
