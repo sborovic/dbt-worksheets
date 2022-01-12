@@ -3,7 +3,8 @@ import "package:app/db.dart";
 
 class SkillsList extends StatefulWidget {
   final List<SkillsNode> skillNodes;
-  const SkillsList({required this.skillNodes, Key? key}) : super(key: key);
+  final ScrollController _scrollController = ScrollController();
+  SkillsList({required this.skillNodes, Key? key}) : super(key: key);
 
   @override
   _SkillsListState createState() => _SkillsListState();
@@ -13,20 +14,21 @@ class _SkillsListState extends State<SkillsList> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+        primary: false,
         shrinkWrap: true,
         children: ListTile.divideTiles(
           context: context,
           tiles: widget.skillNodes.map((e) {
             if (e.isLeaf == true) {
               return ListTile(
-                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20), 
-                leading: const Icon(Icons.auto_awesome_motion),
+                contentPadding: const EdgeInsets.fromLTRB(30, 5, 30, 5), 
+       
                 title: Text(
                   e.title,
-                  overflow: TextOverflow.fade,
-                  softWrap: false,
+                  
+              
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios),
+                trailing: const Icon(Icons.check_circle_outline_rounded),
               );
             } else {
               return Column(children: [
