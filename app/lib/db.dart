@@ -22,7 +22,7 @@ List<SkillsNode> getChildrenOf(int parentId) {
       SkillsNode(
           id: 12,
           title:
-              "Hodajte sporije, zaustavite se negde gde imate pogled, posmatrajte cveće, drveće i prirodu.",
+              "Write out a nonjudgmental blow-by-blow account of a particularly important episode in your day.",
           isLeaf: true),
       SkillsNode(
           id: 13,

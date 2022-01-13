@@ -3,8 +3,7 @@ import "package:app/db.dart";
 
 class SkillsList extends StatefulWidget {
   final List<SkillsNode> skillNodes;
-  final ScrollController _scrollController = ScrollController();
-  SkillsList({required this.skillNodes, Key? key}) : super(key: key);
+  const SkillsList({required this.skillNodes, Key? key}) : super(key: key);
 
   @override
   _SkillsListState createState() => _SkillsListState();
@@ -28,7 +27,9 @@ class _SkillsListState extends State<SkillsList> {
                   
               
                 ),
-                trailing: const Icon(Icons.check_circle_outline_rounded),
+                leading: Container(
+                  height: double.infinity, child: const Icon(Icons.check_circle_outline_rounded)),
+                enableFeedback: true,
               );
             } else {
               return Column(children: [
