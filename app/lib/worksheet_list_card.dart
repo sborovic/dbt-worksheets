@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 
-class SkillsGroupCard extends StatelessWidget {
+class WorksheetListCard extends StatelessWidget {
   final String title, subtitle;
 
-  const SkillsGroupCard({Key? key, required this.title, required this.subtitle})
+  const WorksheetListCard({Key? key, required this.title, required this.subtitle})
       : super(key: key);
 
   @override

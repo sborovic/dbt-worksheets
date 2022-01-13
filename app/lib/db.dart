@@ -1,77 +1,104 @@
 class SkillNode {
   int id;
   String title;
+  String description;
   bool isLeaf;
 
-  SkillNode({required this.id, required this.title, required this.isLeaf});
+  SkillNode(
+      {required this.id,
+      required this.title,
+      required this.description,
+      required this.isLeaf});
 }
 
 List<SkillNode> getChildrenOf(int parentId) {
+  if (parentId == 1) {
+    return [
+      SkillNode(
+          description: 'materijal', title: 'Posmatranje', id: 2, isLeaf: false)
+    ];
+  }
   if (parentId == 2) {
     return [
-      SkillNode(id: 10, title: "Posmatranje očima", isLeaf: false),
-      SkillNode(id: 20, title: "Posmatranje zvukova", isLeaf: false),
+      SkillNode(
+          id: 10,
+          description: "Posmatranje očima",
+          title: 'titl',
+          isLeaf: false),
+      SkillNode(
+          id: 20,
+          title: "titl",
+          description: "Posmatranje zvukova",
+          isLeaf: false),
     ];
   }
   if (parentId == 10) {
     return [
       SkillNode(
           id: 11,
-          title: "Lezite na zemlju/travu i posmatrajte oblake na nebu",
+          description: "Lezite na zemlju/travu i posmatrajte oblake na nebu",
+          title: 'titl',
           isLeaf: true),
       SkillNode(
           id: 12,
-          title:
+          description:
               "Write out a nonjudgmental blow-by-blow account of a particularly important episode in your day.",
+          title: 'titl',
           isLeaf: true),
       SkillNode(
           id: 13,
-          title:
+          description:
               "Sedite napolju. Posmatrajte ko i šta prolazi ispred vas, bez da pokretima glave ili pogledom pratite njihovo kretanje.",
+          title: 'titl',
           isLeaf: true),
       SkillNode(
           id: 14,
-          title: "Lezite na zemlju/travu i posmatrajte oblake na nebu",
+          description: "Lezite na zemlju/travu i posmatrajte oblake na nebu",
+          title: 'titl',
           isLeaf: false),
       SkillNode(
           id: 15,
-          title:
+          description:
               "Hodajte sporije, zaustavite se negde gde imate pogled, posmatrajte cveće, drveće i prirodu.",
+          title: 'titl',
           isLeaf: true),
       SkillNode(
           id: 16,
-          title:
+          description:
               "Sedite napolju. Posmatrajte ko i šta prolazi ispred vas, bez da pokretima glave ili pogledom pratite njihovo kretanje.",
+          title: 'titl',
           isLeaf: true),
     ];
-
   }
-  if (parentId == 14 ) {
+  if (parentId == 14) {
     return [
-            SkillNode(
+      SkillNode(
           id: 17,
-          title:
+          description:
               "UNUTAR> Hodajte sporije, zaustavite se negde gde imate pogled, posmatrajte cveće, drveće i prirodu.",
+          title: 'titl',
           isLeaf: true),
       SkillNode(
           id: 18,
-          title:
+          description:
               "UNUTAR> Sedite napolju. Posmatrajte ko i šta prolazi ispred vas, bez da pokretima glave ili pogledom pratite njihovo kretanje.",
+          title: 'titl',
           isLeaf: true),
     ];
-    
   }
   if (parentId == 20) {
     return [
       SkillNode(
           id: 21,
-          title:
+          description:
               "Zaustavite se na momenat i osluškujte. Slušajte teksturu i oblik zvukova oko vas. Pokušajte da čujete tišinu između zvukova.",
+          title: 'titl',
           isLeaf: true),
       SkillNode(
           id: 12,
-          title:
+          description:
               "Dok neko priča, slušajte visinu glasa, mekoću ili grubost zvukova, jasnoću i razgovetnost govora, pauze između pojedinih reči.",
+          title: 'titl',
           isLeaf: true),
     ];
   }

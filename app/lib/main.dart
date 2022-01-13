@@ -1,8 +1,7 @@
 import 'package:app/db.dart';
-import 'package:app/module_menu.dart';
+import 'package:app/worksheet_list_screen.dart';
 import 'package:app/skill_list.dart';
 import 'package:flutter/material.dart';
-import 'package:app/constants.dart' as Constants;
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 
 void main() => runApp(const MyApp());
@@ -24,13 +23,9 @@ class _MyAppState extends State<MyApp> {
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
       // Use dark or light theme based on system setting.
       themeMode: ThemeMode.system,
-      home: Scaffold(
-        appBar: AppBar(title: const Text('DBT Beležnica')),
-        // body: const ModuleMenu(
-        //   name: 'Mindfulness veštine', 
-        //   SkillGroup: Constants.SkillGroups.mindfulness,
-        // ),
-        body: SkillList(skillNodes: getChildrenOf(2),)
+      home: WorksheetListScreen(
+        moduleName: 'Mindfulness veštine',
+        skillNodes: getChildrenOf(1),
       ),
     );
   }
