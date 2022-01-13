@@ -30,20 +30,36 @@ List<SkillsNode> getChildrenOf(int parentId) {
               "Sedite napolju. Posmatrajte ko i šta prolazi ispred vas, bez da pokretima glave ili pogledom pratite njihovo kretanje.",
           isLeaf: true),
       SkillsNode(
-          id: 11,
+          id: 14,
           title: "Lezite na zemlju/travu i posmatrajte oblake na nebu",
-          isLeaf: true),
+          isLeaf: false),
       SkillsNode(
-          id: 12,
+          id: 15,
           title:
               "Hodajte sporije, zaustavite se negde gde imate pogled, posmatrajte cveće, drveće i prirodu.",
           isLeaf: true),
       SkillsNode(
-          id: 13,
+          id: 16,
           title:
               "Sedite napolju. Posmatrajte ko i šta prolazi ispred vas, bez da pokretima glave ili pogledom pratite njihovo kretanje.",
           isLeaf: true),
     ];
+
+  }
+  if (parentId == 14 ) {
+    return [
+            SkillsNode(
+          id: 17,
+          title:
+              "UNUTAR> Hodajte sporije, zaustavite se negde gde imate pogled, posmatrajte cveće, drveće i prirodu.",
+          isLeaf: true),
+      SkillsNode(
+          id: 18,
+          title:
+              "UNUTAR> Sedite napolju. Posmatrajte ko i šta prolazi ispred vas, bez da pokretima glave ili pogledom pratite njihovo kretanje.",
+          isLeaf: true),
+    ];
+    
   }
   if (parentId == 20) {
     return [
