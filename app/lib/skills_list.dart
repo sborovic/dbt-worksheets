@@ -39,6 +39,9 @@ class _SkillsListState extends State<SkillsList> {
                   //margin: EdgeInsets.symmetric(vertical: 5, horizontal:5),
                   child: Row(
                     children: [
+                    Container(
+                      margin: const EdgeInsets.only(left:25),
+                      child: Text('01', style: TextStyle(color: Theme.of(context).primaryColor),)),
                       Flexible(
                         child: Container(
                           margin: EdgeInsets.symmetric(

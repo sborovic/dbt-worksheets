@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: FlexThemeData.light(scheme: FlexScheme.mallardGreen),
+      theme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
       // The Mandy red, dark theme.
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
       // Use dark or light theme based on system setting.
