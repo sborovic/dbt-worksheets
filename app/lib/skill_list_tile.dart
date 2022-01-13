@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SkillTile extends StatelessWidget {
+class SkillListTile extends StatelessWidget {
   final String description;
   final int index;
-  const SkillTile({required this.description, required this.index, Key? key})
+  const SkillListTile({required this.description, required this.index, Key? key})
       : super(key: key);
 
   @override

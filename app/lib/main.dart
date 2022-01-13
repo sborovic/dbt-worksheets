@@ -1,6 +1,6 @@
 import 'package:app/db.dart';
 import 'package:app/module_menu.dart';
-import 'package:app/skills_list.dart';
+import 'package:app/skill_list.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart' as Constants;
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -28,9 +28,9 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(title: const Text('DBT Beležnica')),
         // body: const ModuleMenu(
         //   name: 'Mindfulness veštine', 
-        //   skillsGroup: Constants.SkillsGroups.mindfulness,
+        //   SkillGroup: Constants.SkillGroups.mindfulness,
         // ),
-        body: SkillsList(skillNodes: getChildrenOf(2),)
+        body: SkillList(skillNodes: getChildrenOf(2),)
       ),
     );
   }

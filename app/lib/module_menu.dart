@@ -1,6 +1,6 @@
 import 'package:app/constants.dart';
 import "package:flutter/material.dart";
-import "package:app/skills_group_card.dart";
+import 'package:app/skill_group_card.dart';
 
 class ModuleMenu extends StatelessWidget {
   final List<SkillsGroups> skillsGroup;
