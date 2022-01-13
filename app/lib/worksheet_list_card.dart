@@ -23,12 +23,12 @@ class WorksheetListCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               TextButton(
-                child: const Text('IZABERI NASUMIČNO'),
+                child: const Text('IZVEŠTAJ'),
                 onPressed: () {/* ... */},
               ),
               const SizedBox(width: 8),
               TextButton(
-                child: const Text('PRIKAŽI SVE'),
+                child: const Text('VEŽBANJE'),
                 onPressed: () {/* ... */},
               ),
               const SizedBox(width: 8),
