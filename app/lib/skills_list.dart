@@ -12,36 +12,79 @@ class SkillsList extends StatefulWidget {
 class _SkillsListState extends State<SkillsList> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-        primary: false,
-        shrinkWrap: true,
-        children: ListTile.divideTiles(
-          context: context,
-          tiles: widget.skillNodes.map((e) {
+    return Container(
+      child: ListView(
+          primary: false,
+          shrinkWrap: true,
+          children: widget.skillNodes.map((e) {
             if (e.isLeaf == true) {
-              return ListTile(
-                contentPadding: const EdgeInsets.fromLTRB(30, 5, 30, 5), 
-       
-                title: Text(
-                  e.title,
-                  
-              
+              return Container(
+                // margin: EdgeInsets.all(8),
+                // decoration: BoxDecoration(
+                //   borderRadius: BorderRadius.circular(10.0),
+                //   color: Colors.white,
+                //   boxShadow: [
+                //     BoxShadow(
+                //       color: Colors.black,
+                //       blurRadius: 2.0,
+                //       spreadRadius: 0.0,
+                //       offset:
+                //           Offset(2.0, 2.0), // shadow direction: bottom right
+                //     )
+                //   ],
+                // ),
+                child: Container(
+         
+                  margin: EdgeInsets.all(2),
+                  //margin: EdgeInsets.symmetric(vertical: 5, horizontal:5),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 25),
+                          child: Text(
+                            e.title,
+                            //   overflow: TextOverflow.visible,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.all(25),
+                        child: Icon(Icons.check),
+                      ),
+                    ],
+                  ),
                 ),
-                leading: Container(
-                  height: double.infinity, child: const Icon(Icons.check_circle_outline_rounded)),
-                enableFeedback: true,
               );
             } else {
-              return Column(children: [
-                ExpansionTile(
-                    title: Text(e.title),
-                    //  subtitle: const Text('Trailing expansion arrow icon'),
-                    children: <Widget>[
-                      SkillsList(skillNodes: getChildrenOf(e.id)),
-                    ])
-              ]);
+              return Container(
+                // margin: EdgeInsets.all(8),
+                // decoration: BoxDecoration(
+                //   borderRadius: BorderRadius.circular(8.0),
+                //   color: Colors.white,
+                //   boxShadow: [
+                //     BoxShadow(
+                //       color: Colors.black,
+                //       blurRadius: 2.0,
+                //       spreadRadius: 0.0,
+                //       offset:
+                //           Offset(2.0, 2.0), // shadow direction: bottom right
+                //     )
+                //   ],
+                // ),
+                child: Column(children: [
+                  ExpansionTile(title: Text(e.title),
+
+                      //  subtitle: const Text('Trailing expansion arrow icon'),
+                      children: <Widget>[
+                        SkillsList(skillNodes: getChildrenOf(e.id)),
+                      ])
+                ]),
+              );
             }
-          }),
-        ).toList());
+          }).toList()),
+    );
   }
 }
