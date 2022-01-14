@@ -29,6 +29,7 @@ class WorksheetListScreen extends StatelessWidget {
               .map((e) => WorksheetListCard(
                     title: e.title,
                     subtitle: e.description,
+                    id: e.id,
                   ))
               .toList(),
         ],
