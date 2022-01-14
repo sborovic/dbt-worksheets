@@ -3,11 +3,9 @@ import "package:flutter/material.dart";
 import 'package:app/skill_list_screen.dart';
 
 class WorksheetListCard extends StatelessWidget {
-  final String title, subtitle;
-  final int id;
+  final SkillNode skillNode;
 
-  const WorksheetListCard(
-      {Key? key, required this.title, required this.subtitle, required this.id})
+  const WorksheetListCard({Key? key, required this.skillNode})
       : super(key: key);
 
   @override
@@ -19,9 +17,9 @@ class WorksheetListCard extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.segment_rounded),
             title: Text(
-              title,
+              skillNode.title,
             ),
-            subtitle: Text(subtitle),
+            subtitle: Text(skillNode.description),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -37,7 +35,8 @@ class WorksheetListCard extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => SkillListScreen(
-                        skillNodes: getChildrenOf(2),
+                        appBarTitle: skillNode.title,
+                        skillNodes: getChildrenOf(skillNode.id),
                       ),
                     ),
                   );

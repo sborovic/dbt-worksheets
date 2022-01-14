@@ -27,9 +27,7 @@ class WorksheetListScreen extends StatelessWidget {
           ),
           ...skillNodes
               .map((e) => WorksheetListCard(
-                    title: e.title,
-                    subtitle: e.description,
-                    id: e.id,
+                    skillNode: e,
                   ))
               .toList(),
         ],
