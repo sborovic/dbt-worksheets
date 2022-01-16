@@ -1,7 +1,7 @@
 import 'package:app/skill_list.dart';
 import 'package:flutter/material.dart';
 
-import 'db.dart';
+import 'package:app/models/skill_node_model.dart';
 
 class SkillListScreen extends StatelessWidget {
   final List<SkillNode> skillNodes;

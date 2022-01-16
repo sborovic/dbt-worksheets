@@ -2,6 +2,8 @@ import 'package:app/db.dart';
 import "package:flutter/material.dart";
 import 'package:app/skill_list_screen.dart';
 
+import 'models/skill_node_model.dart';
+
 class WorksheetListCard extends StatelessWidget {
   final SkillNode skillNode;
 

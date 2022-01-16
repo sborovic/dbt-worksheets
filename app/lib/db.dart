@@ -1,14 +1,66 @@
-class SkillNode {
-  int id;
-  String title;
-  String description;
-  bool isLeaf;
+import 'dart:io';
 
-  SkillNode(
-      {required this.id,
-      required this.title,
-      required this.description,
-      required this.isLeaf});
+import "package:app/models/skill_node_model.dart";
+import 'package:flutter/services.dart';
+
+import "dart:io" as io;
+import "package:path/path.dart";
+import 'package:sqflite/sqflite.dart';
+
+class SqliteDb {
+  SqliteDb._();
+  static final SqliteDb _instance = SqliteDb._();
+  factory SqliteDb() => _instance;
+
+  static Database? _db;
+
+  Future<Database> get db async {
+    if (_db != null) {
+      return _db!;
+    }
+    _db = await initDb();
+    return _db!;
+  }
+
+  /// Initialize DB
+  Future<Database> initDb() async {
+    var databasesPath = await getDatabasesPath();
+    var path = join(databasesPath, "app.db");
+
+// Check if the database exists
+    var exists = await databaseExists(path);
+
+    if (!exists) {
+      // Should happen only the first time you launch your application
+      print("Creating new copy from asset");
+
+      // Make sure the parent directory exists
+      try {
+        await Directory(dirname(path)).create(recursive: true);
+      } catch (_) {}
+
+      // Copy from asset
+      ByteData data = await rootBundle.load(join("assets", "db_en.db"));
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+      // Write and flush the bytes written
+      await File(path).writeAsBytes(bytes, flush: true);
+    } else {
+      print("Opening existing database");
+    }
+// open the database
+    return await openDatabase(path, readOnly: true);
+  }
+
+  /// Count number of tables in DB
+  Future<int> countTable() async {
+    var dbClient = await db;
+    var res =
+        await dbClient.rawQuery("""SELECT count(*) as count FROM mindfulness
+        """);
+    return res[0]['count'] as int;
+  }
 }
 
 List<SkillNode> getChildrenOf(int parentId) {

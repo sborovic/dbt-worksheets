@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class SkillListTile extends StatelessWidget {
   final String description;
   final int index;
-  const SkillListTile({required this.description, required this.index, Key? key})
+  const SkillListTile(
+      {required this.description, required this.index, Key? key})
       : super(key: key);
 
   @override

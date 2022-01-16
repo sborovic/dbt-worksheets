@@ -2,6 +2,7 @@ import 'package:app/skill_list_tile.dart';
 import "package:flutter/material.dart";
 import "package:app/db.dart";
 import "package:app/extensions.dart";
+import "package:app/models/skill_node_model.dart";
 
 class SkillList extends StatefulWidget {
   final List<SkillNode> skillNodes;
