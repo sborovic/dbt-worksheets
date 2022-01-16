@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    assets:
+      - assets/db_en.db
   sqflite:
   path:
 
