@@ -29,7 +29,7 @@ class SqliteDb {
 // Check if the database exists
     var exists = await databaseExists(path);
 
-    if (!exists) {
+    if (exists) {
       // Should happen only the first time you launch your application
       print("Creating new copy from asset");
 
@@ -62,21 +62,8 @@ class SqliteDb {
   }
 
   Future<List<SkillNode>> getChildrenOf(String tableName, int parentId) async {
-    final List<Map<String, dynamic>> maps =
-        await _db!.query(tableName, columns: [
-      SkillNode.columnId,
-      SkillNode.columnTitle,
-      SkillNode.columnDescription,
-      SkillNode.columnIsLeaf
-    ]);
-
-    return List.generate(maps.length, (i) {
-      return SkillNode.fromMap(maps[i]);
-    });
-  }
-
-  Future<SkillNode> getNodeById(String tableName, int id) async {
-    final maps = await _db!.query(
+    print('usao u getchildrenof');
+    final List<Map<String, dynamic>> maps = await (await db).query(
       tableName,
       columns: [
         SkillNode.columnId,
@@ -84,10 +71,35 @@ class SqliteDb {
         SkillNode.columnDescription,
         SkillNode.columnIsLeaf,
       ],
-      where: '${SkillNode.columnId} = ?',
+      where: '${SkillNode.columnParentId} = ?',
+      whereArgs: [parentId],
+    );
+    print("a u gcof je mmap = ${maps}");
+    var a = List<SkillNode>.generate(maps.length, (i) {
+      print("gcof map[i] je: ${maps[i]}");
+      return SkillNode.fromMap(maps[i]);
+    });
+    print("a a je = ${a}");
+    return a;
+  }
+
+  Future<SkillNode> getNodeById(String tableName, int id) async {
+    print('!!!!!!!!!!usao u getNodeById');
+    final maps = await (await db).query(
+      tableName,
+      columns: [
+        SkillNode.columnId,
+        SkillNode.columnTitle,
+        SkillNode.columnDescription,
+        SkillNode.columnIsLeaf,
+      ],
+      where: 'id = ?',
       whereArgs: [id],
     );
-    return SkillNode.fromMap(maps[0]);
+    print('da dvidimo maps: ${maps[0]}');
+    var a = SkillNode.fromMap(maps[0]);
+    print('da vidimo a = ${a.toString}');
+    return a;
   }
 }
 

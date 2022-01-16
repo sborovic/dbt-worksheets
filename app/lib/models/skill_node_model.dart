@@ -3,6 +3,7 @@ class SkillNode {
   static const columnTitle = 'title';
   static const columnDescription = 'description';
   static const columnIsLeaf = 'is_leaf';
+  static const columnParentId = 'parent_id';
   int id;
   String title;
   String description;
@@ -26,8 +27,8 @@ class SkillNode {
 
   SkillNode.fromMap(Map<String, dynamic> map)
       : id = map[columnId],
-        title = map[columnTitle],
-        description = map[columnDescription],
+        title = map[columnTitle] ?? '',
+        description = map[columnDescription] ?? '',
         isLeaf = map[columnIsLeaf] == 1;
 
   @override
