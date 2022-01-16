@@ -5,10 +5,14 @@ import 'package:app/models/skill_node_model.dart';
 
 class SkillListScreen extends StatelessWidget {
   final List<SkillNode> skillNodes;
+  final String tableName;
   final String appBarTitle;
-  const SkillListScreen(
-      {required this.appBarTitle, required this.skillNodes, Key? key})
-      : super(key: key);
+  const SkillListScreen({
+    required this.tableName,
+    required this.appBarTitle,
+    required this.skillNodes,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +20,7 @@ class SkillListScreen extends StatelessWidget {
       appBar: AppBar(title: Text(appBarTitle)),
       body: SkillList(
         skillNodes: skillNodes,
+        tableName: tableName,
       ),
     );
   }

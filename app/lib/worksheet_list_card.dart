@@ -6,8 +6,10 @@ import 'models/skill_node_model.dart';
 
 class WorksheetListCard extends StatelessWidget {
   final SkillNode skillNode;
+  final String tableName;
 
-  const WorksheetListCard({Key? key, required this.skillNode})
+  const WorksheetListCard(
+      {Key? key, required this.skillNode, required this.tableName})
       : super(key: key);
 
   @override
@@ -36,10 +38,21 @@ class WorksheetListCard extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => SkillListScreen(
-                        appBarTitle: skillNode.title,
-                        skillNodes: getChildrenOf(skillNode.id),
-                      ),
+                      builder: (context) => FutureBuilder(
+                          future:
+                              SqliteDb().getChildrenOf(tableName, skillNode.id),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<SkillNode>> snapshot) {
+                            if (snapshot.hasData) {
+                              return SkillListScreen(
+                                appBarTitle: skillNode.title,
+                                skillNodes: snapshot.data!,
+                                tableName: tableName,
+                              );
+                            } else {
+                              return const Text('Waiting for SkillListScreen');
+                            }
+                          }),
                     ),
                   );
                 },

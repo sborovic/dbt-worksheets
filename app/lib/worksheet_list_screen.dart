@@ -5,24 +5,20 @@ import 'package:flutter/material.dart';
 import 'models/skill_node_model.dart';
 
 class WorksheetListScreen extends StatelessWidget {
-  final List<SkillNode> skillNodes;
+  final List<String> worksheetTableNames;
   final String moduleName;
-  const WorksheetListScreen(
-      {required this.moduleName, required this.skillNodes, Key? key})
-      : super(key: key);
+  const WorksheetListScreen({
+    required this.moduleName,
+    required this.worksheetTableNames,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: FutureBuilder(
-              future: SqliteDb().countTable(),
-              builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                if (snapshot.hasData) {
-                  return Text(snapshot.data.toString());
-                } else
-                  return Text('no data');
-              })),
+        title: Text(moduleName),
+      ),
       body: ListView(
         children: [
           Container(
@@ -33,10 +29,22 @@ class WorksheetListScreen extends StatelessWidget {
             width: double.infinity,
             margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           ),
-          ...skillNodes
-              .map((e) => WorksheetListCard(
-                    skillNode: e,
-                  ))
+          ...worksheetTableNames
+              .map(
+                (e) => FutureBuilder(
+                  future: SqliteDb().getNodeById(e, 0),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<SkillNode> snapshot) {
+                    if (snapshot.hasData) {
+                      return WorksheetListCard(
+                        tableName: e,
+                        skillNode: snapshot.data!,
+                      );
+                    }
+                    return const Text('Waiting for WorksheetListCard...');
+                  },
+                ),
+              )
               .toList(),
         ],
       ),

@@ -1,0 +1,40 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "mindfulness_worksheet_4a" (
+id INTEGER PRIMARY KEY,
+parent_id INTEGER,
+title TEXT,
+description TEXT
+, is_leaf INTEGER);
+INSERT INTO mindfulness_worksheet_4a VALUES(0,NULL,'Mindfulness',NULL,0);
+INSERT INTO mindfulness_worksheet_4a VALUES(1,0,'Observing, Describing, Participating checklist','Mindfulness Worksheet 4a',0);
+INSERT INTO mindfulness_worksheet_4a VALUES(2,1,NULL,'Practice observing',0);
+INSERT INTO mindfulness_worksheet_4a VALUES(3,2,NULL,'What you see:   Watch without following what you see.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(4,2,NULL,'Sounds: Sounds around you,   pitch and sound of someone’s voice,   music.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(5,2,NULL,'Smells around you:   Aroma of food,   soap,   air as you walk.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(6,2,NULL,'The taste of what you eat and the act of eating.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(7,2,NULL,'Urges to do something:   Urge-surf, notice urge to avoid, notice where in body urge is.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(8,2,NULL,'Body sensations:   Body scan, sensation of walking, body touching something.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(9,2,NULL,'Thoughts coming in and out of your mind:   Imagine your mind as a river, as a conveyor belt.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(10,2,NULL,'Your breath:   Movement of stomach,   sensations of air in and out nose.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(11,2,NULL,'By expanding awareness: To your entire body,   to space around you, to hugging a tree.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(12,2,NULL,'By opening the mind: To each sensation arising, not attaching, letting go of each.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(13,1,NULL,'Practice describing:',0);
+INSERT INTO mindfulness_worksheet_4a VALUES(14,13,NULL,'What you see outside of your body.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(15,13,NULL,'Thoughts, feelings, and body sensations inside yourself.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(16,13,NULL,'Your breathing.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(17,1,NULL,'Practice participating:',0);
+INSERT INTO mindfulness_worksheet_4a VALUES(18,17,NULL,'Dance to music.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(19,17,NULL,'Sing along with music you are listening to.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(20,17,NULL,'Sing in the shower.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(21,17,NULL,'Sing and dance while watching TV.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(22,17,NULL,'Jump out of bed and dance or sing before getting dressed.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(23,17,NULL,'Go to a church that sings and join in the singing.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(24,17,NULL,'Play karaoke with friends or at a karaoke club or bar.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(25,17,NULL,'Throw yourself into what another person is saying.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(26,17,NULL,'Go running, riding, skating, walking; become one with the activity.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(27,17,NULL,'Play a sport and throw yourself into playing.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(28,17,NULL,'Become the count of your breath, becoming only “one” when you count becoming only “two” when you count and so on.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(29,17,NULL,'Become a word as you slowly say the word over and over and over.',1);
+INSERT INTO mindfulness_worksheet_4a VALUES(30,17,NULL,'Throw caution to the wind, and throw yourself into a social or work activity.',1);
+COMMIT;

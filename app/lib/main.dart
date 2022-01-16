@@ -1,4 +1,5 @@
 import 'package:app/db.dart';
+import 'package:app/models/skill_node_model.dart';
 import 'package:app/worksheet_list_screen.dart';
 import 'package:app/skill_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,15 +21,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: FlexThemeData.light(scheme: FlexScheme.mallardGreen),
-      // The Mandy red, dark theme.
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
-      // Use dark or light theme based on system setting.
       themeMode: ThemeMode.system,
-      home: WorksheetListScreen(
-        moduleName: 'Radni listovi mindfulness',
-        skillNodes: getChildrenOf(1),
+      home: const WorksheetListScreen(
+        moduleName: 'Mindfulness',
+        worksheetTableNames: ['mindfulness_worksheet_4a'],
       ),
-      // home: SkillListScreen(skillNodes: getChildrenOf(2)),
     );
   }
 }

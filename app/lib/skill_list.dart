@@ -6,7 +6,9 @@ import "package:app/models/skill_node_model.dart";
 
 class SkillList extends StatefulWidget {
   final List<SkillNode> skillNodes;
-  const SkillList({required this.skillNodes, Key? key}) : super(key: key);
+  final String tableName;
+  const SkillList({required this.tableName, required this.skillNodes, Key? key})
+      : super(key: key);
 
   @override
   _SkillListState createState() => _SkillListState();
@@ -24,9 +26,24 @@ class _SkillListState extends State<SkillList> {
           return SkillListTile(description: e.description, index: ++i);
         } else {
           return Column(children: [
-            ExpansionTile(title: Text(e.description), children: <Widget>[
-              SkillList(skillNodes: getChildrenOf(e.id)),
-            ])
+            ExpansionTile(
+              title: Text(e.description),
+              children: <Widget>[
+                FutureBuilder(
+                  future: SqliteDb().getChildrenOf(widget.tableName, e.id),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<SkillNode>> snapshot) {
+                    if (snapshot.hasData) {
+                      return SkillList(
+                        skillNodes: snapshot.data!,
+                        tableName: widget.tableName,
+                      );
+                    }
+                    return const Text("Waiting for SkillList...");
+                  },
+                ),
+              ],
+            )
           ]);
         }
       }).toList(),
