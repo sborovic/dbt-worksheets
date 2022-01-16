@@ -1,0 +1,33 @@
+INSERT INTO mindfulness (id, parent_id, title) VALUES (0, NULL, 'Mindfulness');
+INSERT INTO mindfulness (parent_id, title, description) VALUES (0, 'Observing, Describing, Participating checklist', 'Mindfulness Worksheet 4a');
+INSERT INTO mindfulness (parent_id, description)
+VALUES
+(1, 'Practice observing'),
+(2,'What you see:   Watch without following what you see.'),
+(2,'Sounds: Sounds around you,   pitch and sound of someone’s voice,   music.'),
+(2,'Smells around you:   Aroma of food,   soap,   air as you walk.'),
+(2,'The taste of what you eat and the act of eating.'),
+(2,'Urges to do something:   Urge-surf, notice urge to avoid, notice where in body urge is.'),
+(2,'Body sensations:   Body scan, sensation of walking, body touching something.'),
+(2,'Thoughts coming in and out of your mind:   Imagine your mind as a river, as a conveyor belt.'),
+(2,'Your breath:   Movement of stomach,   sensations of air in and out nose.'),
+(2,'By expanding awareness: To your entire body,   to space around you, to hugging a tree.'),
+(2,'By opening the mind: To each sensation arising, not attaching, letting go of each.'),
+(1,'Practice describing:'),
+(13,'What you see outside of your body.'),
+(13,'Thoughts, feelings, and body sensations inside yourself.'),
+(13,'Your breathing.'),
+(1,'Practice participating:'),
+(17,'Dance to music.'),
+(17,'Sing along with music you are listening to.'),
+(17,'Sing in the shower.'),
+(17,'Sing and dance while watching TV.'),
+(17,'Jump out of bed and dance or sing before getting dressed.'),
+(17,'Go to a church that sings and join in the singing.'),
+(17,'Play karaoke with friends or at a karaoke club or bar.'),
+(17,'Throw yourself into what another person is saying.'),
+(17,'Go running, riding, skating, walking; become one with the activity.'),
+(17,'Play a sport and throw yourself into playing.'),
+(17,'Become the count of your breath, becoming only “one” when you count becoming only “two” when you count and so on.'),
+(17,'Become a word as you slowly say the word over and over and over.'),
+(17,'Throw caution to the wind, and throw yourself into a social or work activity.');
