@@ -43,19 +43,16 @@ class WorksheetListCard extends StatelessWidget {
                               SqliteDb().getChildrenOf(tableName, skillNode.id),
                           builder: (BuildContext context,
                               AsyncSnapshot<List<SkillNode>> snapshot) {
-                            print(
-                                "pre pravljenja skilllist, skillnode je ${skillNode.id}");
                             if (snapshot.hasData) {
-                              print("a snpdata je.... ${snapshot.data}");
                               return SkillListScreen(
-                                appBarTitle: skillNode.title,
+                                appBarTitle: skillNode.description,
                                 skillNodes: snapshot.data!,
                                 tableName: tableName,
                               );
                             } else {
-                              return Scaffold(
-                                  body: const Text(
-                                      'Waiting for SkillListScreen'));
+                              return const Scaffold(
+                                body: Text('Waiting for SkillListScreen'),
+                              );
                             }
                           }),
                     ),

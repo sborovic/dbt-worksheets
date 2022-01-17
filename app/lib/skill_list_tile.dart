@@ -22,6 +22,7 @@ class SkillListTile extends StatelessWidget {
           ),
           Flexible(
             child: Container(
+              width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Text(description),
             ),

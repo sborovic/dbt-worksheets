@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
       themeMode: ThemeMode.system,
       home: const WorksheetListScreen(
-        moduleName: 'Mindfulness',
+        moduleName: 'Module: Mindfulness',
         worksheetTableNames: ['mindfulness_worksheet_4a'],
       ),
     );

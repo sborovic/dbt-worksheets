@@ -17,7 +17,7 @@ class WorksheetListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(moduleName),
+        title: const Text('DBT: Worksheets'),
       ),
       body: ListView(
         children: [
