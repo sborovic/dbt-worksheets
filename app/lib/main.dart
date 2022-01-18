@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: FlexThemeData.light(scheme: FlexScheme.mallardGreen),
+      theme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
       themeMode: ThemeMode.system,
       home: const WorksheetListScreen(
