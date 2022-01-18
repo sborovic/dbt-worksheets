@@ -49,7 +49,7 @@ class SqliteDb {
       print("Opening existing database");
     }
 // open the database
-    return await openDatabase(path, readOnly: true);
+    return await openDatabase(path);
   }
 
   /// Count number of tables in DB
@@ -61,12 +61,17 @@ class SqliteDb {
     return res[0]['count'] as int;
   }
 
+  Future<int> insertSkill(String tableName, Map<String, dynamic> values) async {
+    return await (await db).insert(tableName, values);
+  }
+
   Future<List<SkillNode>> getChildrenOf(String tableName, int parentId) async {
     print('usao u getchildrenof');
     final List<Map<String, dynamic>> maps = await (await db).query(
       tableName,
       columns: [
         SkillNode.columnId,
+        SkillNode.columnParentId,
         SkillNode.columnTitle,
         SkillNode.columnDescription,
         SkillNode.columnIsLeaf,
@@ -89,6 +94,7 @@ class SqliteDb {
       tableName,
       columns: [
         SkillNode.columnId,
+        SkillNode.columnParentId,
         SkillNode.columnTitle,
         SkillNode.columnDescription,
         SkillNode.columnIsLeaf,

@@ -19,6 +19,7 @@ class SkillListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(appBarTitle)),
       body: SkillList(
+        key: UniqueKey(),
         skillNodes: skillNodes,
         tableName: tableName,
       ),

@@ -22,7 +22,7 @@ class SkillListTile extends StatelessWidget {
             onPressed: (_) {
               final snackBar = SnackBar(
                 content: const Text('Your practice has been logged!'),
-                action: SnackBarAction(label: 'Undo', onPressed: () {}),
+                action: SnackBarAction(label: 'UNDO', onPressed: () {}),
               );
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -62,7 +62,7 @@ class SkillListTile extends StatelessWidget {
             Container(
               alignment: Alignment.centerRight,
               margin: const EdgeInsets.symmetric(horizontal: 10),
-              child: const Icon(Icons.navigate_next),
+              child: const Icon(Icons.chevron_left),
             ),
           ],
         ),
