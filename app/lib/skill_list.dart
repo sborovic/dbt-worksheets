@@ -56,27 +56,54 @@ class _SkillListState extends State<SkillList> {
         } else {
           return Column(children: [
             ExpansionTile(
+              onExpansionChanged: (val) {
+                if (val == true) setState(() {});
+              },
               title: Text(e.description),
               children: <Widget>[
-                FutureBuilder(
-                  future: SqliteDb().getChildrenOf(widget.tableName, e.id),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<SkillNode>> snapshot) {
-                    if (snapshot.hasData) {
-                      return SkillList(
-                        callback: widget.callback,
-                        skillNodes: snapshot.data!,
-                        tableName: widget.tableName,
-                      );
-                    }
-                    return const Text("Waiting for SkillList...");
-                  },
-                ),
+                FBSL(tableName: widget.tableName, e: e),
               ],
             )
           ]);
         }
       }).toList(),
+    );
+  }
+}
+
+class FBSL extends StatefulWidget {
+  const FBSL({
+    Key? key,
+    required this.tableName,
+    required this.e,
+  }) : super(key: key);
+
+  final String tableName;
+  final SkillNode e;
+
+  @override
+  State<FBSL> createState() => _FBSLState();
+}
+
+class _FBSLState extends State<FBSL> {
+  void callback() {
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: SqliteDb().getChildrenOf(widget.tableName, widget.e.id),
+      builder: (BuildContext context, AsyncSnapshot<List<SkillNode>> snapshot) {
+        if (snapshot.hasData) {
+          return SkillList(
+            callback: callback,
+            skillNodes: snapshot.data!,
+            tableName: widget.tableName,
+          );
+        }
+        return const Text("Waiting for SkillList...");
+      },
     );
   }
 }
