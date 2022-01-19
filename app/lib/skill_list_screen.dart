@@ -29,7 +29,6 @@ class _SkillListScreenState extends State<SkillListScreen> {
       appBar: AppBar(title: Text(widget.appBarTitle)),
       body: SkillList(
         callback: SLSCallback,
-        key: UniqueKey(),
         skillNodes: widget.skillNodes,
         tableName: widget.tableName,
       ),

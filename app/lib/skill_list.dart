@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:app/db.dart";
 import "package:app/extensions.dart";
 import "package:app/models/skill_node_model.dart";
+import 'package:flutter/rendering.dart';
 
 class SkillList extends StatefulWidget {
   final Function callback;
@@ -22,13 +23,15 @@ class SkillList extends StatefulWidget {
 class _SkillListState extends State<SkillList> {
   @override
   Widget build(BuildContext context) {
+    print('SkillListRebuilding...');
     return ListView(
+      addAutomaticKeepAlives: true,
       primary: false,
       shrinkWrap: true,
       children: widget.skillNodes.mapIndexed((e, i) {
         if (e.isLeaf == true) {
           if (i == widget.skillNodes.length - 1) {
-            return Column(children: [
+            return Column(key: ValueKey(e.id), children: [
               SkillListTile(description: e.description, index: ++i),
               OutlinedButton(
                 child: Row(
@@ -52,23 +55,46 @@ class _SkillListState extends State<SkillList> {
               ),
             ]);
           }
-          return SkillListTile(description: e.description, index: ++i);
+          return SkillListTile(
+              key: ValueKey(e.id), description: e.description, index: ++i);
         } else {
-          return Column(children: [
-            ExpansionTile(
-              onExpansionChanged: (val) {
-                if (val == true) setState(() {});
-              },
-              title: Text(e.description),
-              children: <Widget>[
-                FBSL(tableName: widget.tableName, e: e),
-              ],
-            )
-          ]);
+          return ETW(widget: widget, e: e);
         }
       }).toList(),
     );
   }
+}
+
+class ETW extends StatefulWidget {
+  const ETW({
+    Key? key,
+    required this.e,
+    required this.widget,
+  }) : super(key: key);
+
+  final SkillList widget;
+  final SkillNode e;
+
+  @override
+  State<ETW> createState() => _ETWState();
+}
+
+class _ETWState extends State<ETW> with AutomaticKeepAliveClientMixin {
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return ExpansionTile(
+      key: ValueKey(widget.e.id),
+      title: Text(widget.e.description),
+      children: <Widget>[
+        FBSL(tableName: widget.widget.tableName, e: widget.e),
+      ],
+    );
+  }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class FBSL extends StatefulWidget {
