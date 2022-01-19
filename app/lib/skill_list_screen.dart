@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:app/models/skill_node_model.dart';
 
-class SkillListScreen extends StatelessWidget {
+class SkillListScreen extends StatefulWidget {
   final List<SkillNode> skillNodes;
   final String tableName;
   final String appBarTitle;
@@ -15,13 +15,23 @@ class SkillListScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<SkillListScreen> createState() => _SkillListScreenState();
+}
+
+class _SkillListScreenState extends State<SkillListScreen> {
+  void SLSCallback() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(appBarTitle)),
+      appBar: AppBar(title: Text(widget.appBarTitle)),
       body: SkillList(
+        callback: SLSCallback,
         key: UniqueKey(),
-        skillNodes: skillNodes,
-        tableName: tableName,
+        skillNodes: widget.skillNodes,
+        tableName: widget.tableName,
       ),
     );
   }

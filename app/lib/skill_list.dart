@@ -5,9 +5,14 @@ import "package:app/extensions.dart";
 import "package:app/models/skill_node_model.dart";
 
 class SkillList extends StatefulWidget {
+  final Function callback;
   final String tableName;
   final List<SkillNode> skillNodes;
-  const SkillList({required this.tableName, required this.skillNodes, Key? key})
+  const SkillList(
+      {required this.callback,
+      required this.tableName,
+      required this.skillNodes,
+      Key? key})
       : super(key: key);
 
   @override
@@ -41,7 +46,8 @@ class _SkillListState extends State<SkillList> {
                     SkillNode.columnIsLeaf: 1,
                   });
                   print('after insert');
-                  setState(() {});
+                  // setState(() {});
+                  widget.callback();
                 },
               ),
             ]);
@@ -58,6 +64,7 @@ class _SkillListState extends State<SkillList> {
                       AsyncSnapshot<List<SkillNode>> snapshot) {
                     if (snapshot.hasData) {
                       return SkillList(
+                        callback: widget.callback,
                         skillNodes: snapshot.data!,
                         tableName: widget.tableName,
                       );
