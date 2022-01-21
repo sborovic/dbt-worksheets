@@ -1,12 +1,14 @@
-import 'package:app/db.dart';
-import 'package:app/worksheet_list_card.dart';
 import 'package:flutter/material.dart';
 
-import 'models/skill_node_model.dart';
+import '../db.dart';
+import '../models/skill_node.dart';
+
+import '../widgets/worksheet_list_card.dart';
 
 class WorksheetListScreen extends StatelessWidget {
-  final List<String> worksheetTableNames;
   final String moduleName;
+  final List<String> worksheetTableNames;
+
   const WorksheetListScreen({
     required this.moduleName,
     required this.worksheetTableNames,
@@ -41,7 +43,7 @@ class WorksheetListScreen extends StatelessWidget {
                         skillNode: snapshot.data!,
                       );
                     }
-                    return const Text('Waiting for WorksheetListCard...');
+                    return const CircularProgressIndicator();
                   },
                 ),
               )

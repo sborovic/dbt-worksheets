@@ -1,8 +1,11 @@
-import 'package:app/db.dart';
-import "package:flutter/material.dart";
-import 'package:app/skill_list_screen.dart';
+import 'package:app/providers/skill_list_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'models/skill_node_model.dart';
+import '../models/skill_node.dart';
+import '../db.dart';
+
+import '../screens/skill_list_screen.dart';
 
 class WorksheetListCard extends StatelessWidget {
   final SkillNode skillNode;
@@ -38,24 +41,14 @@ class WorksheetListCard extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => FutureBuilder(
-                          future:
-                              SqliteDb().getChildrenOf(tableName, skillNode.id),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<SkillNode>> snapshot) {
-                            if (snapshot.hasData) {
-                              return SkillListScreen(
+                        builder: (context) =>
+                            ChangeNotifierProvider<SkillListProvider>(
+                              create: (context) => SkillListProvider(
+                                  tableName: tableName, parentId: 0),
+                              child: SkillListScreen(
                                 appBarTitle: skillNode.description,
-                                skillNodes: snapshot.data!,
-                                tableName: tableName,
-                              );
-                            } else {
-                              return const Scaffold(
-                                body: Text('Waiting for SkillListScreen'),
-                              );
-                            }
-                          }),
-                    ),
+                              ),
+                            )),
                   );
                 },
               ),
