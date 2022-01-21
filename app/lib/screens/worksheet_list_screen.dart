@@ -1,4 +1,3 @@
-import 'package:app/providers/worksheet_list_card_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +22,16 @@ class WorksheetListScreen extends StatefulWidget {
 }
 
 class _WorksheetListScreenState extends State<WorksheetListScreen> {
+  late final Map<String, Future<SkillNode>> futures;
+  @override
+  void initState() {
+    super.initState();
+    futures = {
+      for (var tableName in widget.worksheetTableNames)
+        tableName: SqliteDb().getNodeById(tableName, 0)
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,20 +50,19 @@ class _WorksheetListScreenState extends State<WorksheetListScreen> {
           ),
           ...widget.worksheetTableNames
               .map(
-                (e) => ChangeNotifierProvider<WorksheetListCardProvider>(
-                    create: (_) => WorksheetListCardProvider(tableName: e),
-                    builder: (context, _) {
+                (tableName) => FutureBuilder<SkillNode>(
+                  future: futures[tableName],
+                  builder: (context, AsyncSnapshot<SkillNode> snapshot) {
+                    if (snapshot.hasData) {
                       return WorksheetListCard(
-                        tableName: e,
-                        title: Provider.of<WorksheetListCardProvider>(context)
-                                .title ??
-                            '',
-                        description:
-                            Provider.of<WorksheetListCardProvider>(context)
-                                    .description ??
-                                '',
+                        tableName: tableName,
+                        title: snapshot.data!.title,
+                        description: snapshot.data!.description,
                       );
-                    }),
+                    }
+                    return const CircularProgressIndicator();
+                  },
+                ),
               )
               .toList(),
         ],

@@ -1,5 +1,5 @@
 import 'package:app/providers/skill_list_provider.dart';
-import 'package:app/providers/worksheet_list_card_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +21,7 @@ class WorksheetListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("wlc build...............");
     return Card(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -46,8 +47,8 @@ class WorksheetListCard extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) =>
-                            ChangeNotifierProvider<SkillListProvider>(
-                              create: (context) => SkillListProvider(
+                            ChangeNotifierProvider<SkillListProvider>.value(
+                              value: SkillListProvider(
                                   tableName: tableName, parentId: 0),
                               child: SkillListScreen(
                                 appBarTitle: description,

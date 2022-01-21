@@ -1,15 +1,22 @@
 import 'dart:collection';
-
 import 'package:flutter/widgets.dart';
-
+import 'package:tuple/tuple.dart';
 import '../models/skill_node.dart';
 import '../db.dart';
 
 class SkillListProvider with ChangeNotifier {
-  String tableName;
-  int parentId;
-  SkillListProvider({required this.tableName, required this.parentId}) {
+  final String tableName;
+  final int parentId;
+  static final HashMap<Tuple2<String, int>, SkillListProvider> _cache =
+      HashMap();
+
+  factory SkillListProvider({required tableName, required parentId}) {
+    return _cache.putIfAbsent(Tuple2(tableName, parentId),
+        () => SkillListProvider._(tableName: tableName, parentId: parentId));
+  }
+  SkillListProvider._({required this.tableName, required this.parentId}) {
     _update();
+    debugPrint('!!!!!!!!!!!!!!!SkillListProvider CONSTRUCTOR obican!!!');
   }
   List<SkillNode>? _items;
 

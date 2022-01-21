@@ -1,5 +1,5 @@
 import 'package:app/providers/skill_list_provider.dart';
-import 'package:app/providers/worksheet_list_card_provider.dart';
+
 import 'package:app/widgets/expansion_tile_wrapper.dart';
 import 'package:app/widgets/skill_list_tile.dart';
 import 'package:app/widgets/skill_list_tile_editable.dart';
@@ -64,11 +64,9 @@ class _SkillListState extends State<SkillList> {
                 }
                 return SkillListTile(description: e.description, index: ++i);
               } else {
-                return ChangeNotifierProvider<SkillListProvider>(
-                  create: (_) => SkillListProvider(
-                      tableName:
-                          Provider.of<SkillListProvider>(context, listen: false)
-                              .tableName,
+                return ChangeNotifierProvider<SkillListProvider>.value(
+                  value: SkillListProvider(
+                      tableName: context.read<SkillListProvider>().tableName,
                       parentId: e.id),
                   child: ExpansionTileWrapper(title: e.description),
                 );
