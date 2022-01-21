@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:app/models/skill_node.dart';
+import "package:app/models/skill_node.dart";
 import 'package:flutter/services.dart';
 
 import "package:path/path.dart";

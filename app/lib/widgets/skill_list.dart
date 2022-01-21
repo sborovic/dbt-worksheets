@@ -1,11 +1,13 @@
 import 'package:app/providers/skill_list_provider.dart';
+import 'package:app/providers/worksheet_list_card_provider.dart';
+import 'package:app/widgets/expansion_tile_wrapper.dart';
 import 'package:app/widgets/skill_list_tile.dart';
 import 'package:app/widgets/skill_list_tile_editable.dart';
 import "package:flutter/material.dart";
-import "package:app/db.dart";
+
 import "package:app/extensions.dart";
 import 'package:app/models/skill_node.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:provider/provider.dart';
 
 class SkillList extends StatefulWidget {
@@ -17,14 +19,17 @@ class SkillList extends StatefulWidget {
 }
 
 class _SkillListState extends State<SkillList> {
-  bool showButton = true;
-  void setStateCallback() {
-    setState(() {});
+  bool _showButton = true;
+
+  void showButton() {
+    setState(() {
+      _showButton = true;
+    });
   }
 
   void hideButton() {
     setState(() {
-      showButton = true;
+      _showButton = false;
     });
   }
 
@@ -38,7 +43,7 @@ class _SkillListState extends State<SkillList> {
             children: widget.skillNodes!.mapIndexed((e, i) {
               if (e.isLeaf == true) {
                 if (i == widget.skillNodes!.length - 1) {
-                  return showButton
+                  return _showButton
                       ? Column(children: [
                           SkillListTile(description: e.description, index: ++i),
                           OutlinedButton(
@@ -49,21 +54,13 @@ class _SkillListState extends State<SkillList> {
                                 Text('Add your own idea'),
                               ],
                             ),
-                            onPressed: () async {
-                              // await SqliteDb().insertSkill(widget.tableName, {
-                              //   SkillNode.columnParentId: e.parentId,
-                              //   SkillNode.columnDescription: 'TEST = $i',
-                              //   SkillNode.columnIsLeaf: 1,
-                              // });
-                              // widget.callback();
-                              setState(() {
-                                showButton = false;
-                              });
+                            onPressed: () {
+                              hideButton();
                             },
                           ),
                         ])
                       : SkillListTileEditable(
-                          index: i + 1, hideButton: hideButton);
+                          index: i + 1, showButton: showButton);
                 }
                 return SkillListTile(description: e.description, index: ++i);
               } else {
@@ -78,39 +75,6 @@ class _SkillListState extends State<SkillList> {
               }
             }).toList(),
           )
-        : const CircularProgressIndicator();
+        : const Center(child: CircularProgressIndicator());
   }
-}
-
-class ExpansionTileWrapper extends StatefulWidget {
-  const ExpansionTileWrapper({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
-
-  final String title;
-
-  @override
-  State<ExpansionTileWrapper> createState() => _ExpansionTileWrapperState();
-}
-
-class _ExpansionTileWrapperState extends State<ExpansionTileWrapper>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return ExpansionTile(
-      title: Text(widget.title),
-      children: <Widget>[
-        Consumer<SkillListProvider>(builder: (_, provider, __) {
-          return SkillList(
-            skillNodes: provider.items,
-          );
-        })
-      ],
-    );
-  }
-
-  @override
-  bool get wantKeepAlive => true;
 }

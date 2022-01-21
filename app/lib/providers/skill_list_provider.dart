@@ -14,6 +14,7 @@ class SkillListProvider with ChangeNotifier {
   List<SkillNode>? _items;
 
   Future<void> _update() async {
+    await Future.delayed(Duration(seconds: 2));
     _items = await SqliteDb().getChildrenOf(tableName, parentId);
     notifyListeners();
   }

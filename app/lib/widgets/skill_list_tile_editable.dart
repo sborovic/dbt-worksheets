@@ -3,9 +3,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SkillListTileEditable extends StatelessWidget {
   final int index;
-  final VoidCallback hideButton;
+  final VoidCallback showButton;
   const SkillListTileEditable(
-      {required this.hideButton, required this.index, Key? key})
+      {required this.showButton, required this.index, Key? key})
       : super(key: key);
 
   @override
@@ -18,7 +18,6 @@ class SkillListTileEditable extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 25),
             child: Text(
               index.toString().padLeft(2, '0'),
-              // style: TextStyle(color: Theme.of(context).primaryColor),
             ),
           ),
           Flexible(
@@ -37,7 +36,7 @@ class SkillListTileEditable extends StatelessWidget {
             child: Row(children: [
               const Icon(Icons.add),
               const SizedBox(width: 10),
-              IconButton(icon: const Icon(Icons.delete), onPressed: hideButton),
+              IconButton(icon: const Icon(Icons.delete), onPressed: showButton),
             ]),
           ),
         ],

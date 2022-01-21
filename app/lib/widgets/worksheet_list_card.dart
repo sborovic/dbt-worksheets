@@ -1,4 +1,5 @@
 import 'package:app/providers/skill_list_provider.dart';
+import 'package:app/providers/worksheet_list_card_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,12 +9,15 @@ import '../db.dart';
 import '../screens/skill_list_screen.dart';
 
 class WorksheetListCard extends StatelessWidget {
-  final SkillNode skillNode;
+  final String title, description;
   final String tableName;
 
-  const WorksheetListCard(
-      {Key? key, required this.skillNode, required this.tableName})
-      : super(key: key);
+  const WorksheetListCard({
+    Key? key,
+    required this.tableName,
+    required this.title,
+    required this.description,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +28,9 @@ class WorksheetListCard extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.segment_rounded),
             title: Text(
-              skillNode.title,
+              title,
             ),
-            subtitle: Text(skillNode.description),
+            subtitle: Text(description),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -46,7 +50,7 @@ class WorksheetListCard extends StatelessWidget {
                               create: (context) => SkillListProvider(
                                   tableName: tableName, parentId: 0),
                               child: SkillListScreen(
-                                appBarTitle: skillNode.description,
+                                appBarTitle: description,
                               ),
                             )),
                   );
