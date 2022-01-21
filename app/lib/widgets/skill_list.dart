@@ -43,24 +43,26 @@ class _SkillListState extends State<SkillList> {
             children: widget.skillNodes!.mapIndexed((e, i) {
               if (e.isLeaf == true) {
                 if (i == widget.skillNodes!.length - 1) {
-                  return _showButton
-                      ? Column(children: [
-                          SkillListTile(description: e.description, index: ++i),
-                          OutlinedButton(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(Icons.add),
-                                Text('Add your own idea'),
-                              ],
-                            ),
-                            onPressed: () {
-                              hideButton();
-                            },
-                          ),
-                        ])
-                      : SkillListTileEditable(
-                          index: i + 1, showButton: showButton);
+                  return Column(
+                    children: [
+                      SkillListTile(description: e.description, index: ++i),
+                      _showButton
+                          ? OutlinedButton(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(Icons.add),
+                                  Text('Add your own idea'),
+                                ],
+                              ),
+                              onPressed: () {
+                                hideButton();
+                              },
+                            )
+                          : SkillListTileEditable(
+                              index: i + 1, showButton: showButton),
+                    ],
+                  );
                 }
                 return SkillListTile(description: e.description, index: ++i);
               } else {
