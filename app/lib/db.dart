@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import "package:app/models/skill_node.dart";
+import 'package:app/providers/skill_list_provider.dart';
+import 'package:app/widgets/popup_menu_container.dart';
 import 'package:flutter/services.dart';
 
 import "package:path/path.dart";
@@ -48,7 +50,6 @@ class SqliteDb {
   }
 
   Future<List<SkillNode>> getChildrenOf(String tableName, int parentId) async {
-    print('!!!!!!!!usao u getchildrenof');
     final List<Map<String, dynamic>> maps = await (await db).query(
       tableName,
       columns: [
@@ -82,5 +83,10 @@ class SqliteDb {
     );
     var a = SkillNode.fromMap(maps[0]);
     return a;
+  }
+
+  Future<int> deleteSkill(String tableName, int id) async {
+    return await (await db)
+        .delete(tableName, where: '${SkillNode.columnId} = ?', whereArgs: [id]);
   }
 }

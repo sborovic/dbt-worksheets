@@ -40,40 +40,43 @@ class _SkillListState extends State<SkillList> {
             addAutomaticKeepAlives: true,
             primary: false,
             shrinkWrap: true,
-            children: widget.skillNodes!.mapIndexed((e, i) {
-              if (e.isLeaf == true) {
-                if (i == widget.skillNodes!.length - 1) {
-                  return Column(
-                    children: [
-                      SkillListTile(description: e.description, index: ++i),
-                      _showButton
-                          ? OutlinedButton(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Icon(Icons.add),
-                                  Text('Add your own idea'),
-                                ],
-                              ),
-                              onPressed: () {
-                                hideButton();
-                              },
-                            )
-                          : SkillListTileEditable(
-                              index: i + 1, showButton: showButton),
-                    ],
-                  );
-                }
-                return SkillListTile(description: e.description, index: ++i);
-              } else {
-                return ChangeNotifierProvider<SkillListProvider>.value(
-                  value: SkillListProvider(
-                      tableName: context.read<SkillListProvider>().tableName,
-                      parentId: e.id),
-                  child: ExpansionTileWrapper(title: e.description),
-                );
-              }
-            }).toList(),
+            children: [
+              if (widget.skillNodes!.isNotEmpty)
+                ...widget.skillNodes!.mapIndexed((e, i) {
+                  if (e.isLeaf == true) {
+                    return SkillListTile(
+                        id: e.id, description: e.description, index: ++i);
+                  } else {
+                    return ChangeNotifierProvider<SkillListProvider>.value(
+                      value: SkillListProvider(
+                          tableName:
+                              context.read<SkillListProvider>().tableName,
+                          parentId: e.id),
+                      child: ExpansionTileWrapper(title: e.description),
+                    );
+                  }
+                }).toList(),
+              if (widget.skillNodes!.isEmpty ||
+                  widget.skillNodes!.first.isLeaf == true)
+                _showButton
+                    ? OutlinedButton(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.add),
+                            Text('Add your own idea'),
+                          ],
+                        ),
+                        onPressed: () {
+                          hideButton();
+                        },
+                      )
+                    : SkillListTileEditable(
+                        index: widget.skillNodes!.isNotEmpty
+                            ? widget.skillNodes!.length
+                            : 1,
+                        showButton: showButton),
+            ],
           )
         : const Center(child: CircularProgressIndicator());
   }

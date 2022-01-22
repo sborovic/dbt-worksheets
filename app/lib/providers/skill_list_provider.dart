@@ -21,7 +21,6 @@ class SkillListProvider with ChangeNotifier {
   List<SkillNode>? _items;
 
   Future<void> _update() async {
-    await Future.delayed(Duration(seconds: 2));
     _items = await SqliteDb().getChildrenOf(tableName, parentId);
     notifyListeners();
   }
@@ -38,5 +37,10 @@ class SkillListProvider with ChangeNotifier {
       SkillNode.columnParentId: parentId,
     });
     await _update();
+  }
+
+  Future<void> deleteSkill({required int id}) async {
+    await SqliteDb().deleteSkill(tableName, id);
+    return await _update();
   }
 }
