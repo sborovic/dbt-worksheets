@@ -35,6 +35,7 @@ class SkillListProvider with ChangeNotifier {
       SkillNode.columnTitle: title,
       SkillNode.columnDescription: description,
       SkillNode.columnParentId: parentId,
+      SkillNode.columnIsLeaf: true,
     });
     await _update();
   }

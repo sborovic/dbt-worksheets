@@ -73,7 +73,7 @@ class _SkillListState extends State<SkillList> {
                       )
                     : SkillListTileEditable(
                         index: widget.skillNodes!.isNotEmpty
-                            ? widget.skillNodes!.length
+                            ? widget.skillNodes!.length + 1
                             : 1,
                         showButton: showButton),
             ],

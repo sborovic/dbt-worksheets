@@ -1,13 +1,16 @@
+import 'package:app/providers/skill_list_provider.dart';
 import 'package:app/widgets/skill_list_tile_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/src/provider.dart';
 
 class SkillListTileEditable extends StatelessWidget {
   final int index;
   final VoidCallback showButton;
-  const SkillListTileEditable(
+  SkillListTileEditable(
       {required this.showButton, required this.index, Key? key})
       : super(key: key);
+  final descriptionInput = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +19,22 @@ class SkillListTileEditable extends StatelessWidget {
         index.toString().padLeft(2, '0'),
       ),
       index: index,
-      textWidget: const TextField(
+      textWidget: TextField(
+        controller: descriptionInput,
         minLines: 1,
         maxLines: 3,
       ),
       trailingWidget: Row(
         children: [
-          const Icon(Icons.add),
+          IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                context
+                    .read<SkillListProvider>()
+                    .insertSkill(title: '', description: descriptionInput.text);
+              }),
           const SizedBox(width: 10),
-          IconButton(icon: const Icon(Icons.delete), onPressed: showButton),
+          IconButton(icon: const Icon(Icons.close), onPressed: showButton),
         ],
       ),
     );
