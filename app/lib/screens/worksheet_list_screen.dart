@@ -36,7 +36,7 @@ class _WorksheetListScreenState extends State<WorksheetListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DBT: Worksheets'),
+        title: const Text('DBT: Radni listovi'),
       ),
       body: ListView(
         children: [

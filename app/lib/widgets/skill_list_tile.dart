@@ -1,3 +1,7 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:app/db.dart';
 import 'package:app/providers/skill_list_provider.dart';
 import 'package:app/widgets/popup_menu_container.dart';
 import 'package:app/widgets/skill_list_tile_body.dart';
@@ -41,7 +45,10 @@ class _SkillListTileState extends State<SkillListTile> {
           SlidableAction(
             // An action can be bigger than the others.
 
-            onPressed: (_) {
+            onPressed: (_) async {
+              context.read<SkillListProvider>().logPractice(
+                  widget.id, DateTime.now().millisecondsSinceEpoch);
+              debugPrint((await SqliteDb().selectAll('logs')).toString());
               final snackBar = SnackBar(
                 content: const Text('Your practice has been logged!'),
                 action: SnackBarAction(label: 'UNDO', onPressed: () {}),

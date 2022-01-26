@@ -1,0 +1,2 @@
+INSERT INTO logs (datetime, table_name, foreign_id) VALUES (1, 'mindfulness_worksheet_4a', 6), (3, 'mindfulness_worksheet_4a', 6), 
+       (4, 'mindfulness_worksheet_4a', 6), (6, 'mindfulness_worksheet_4a', 8);

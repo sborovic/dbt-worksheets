@@ -1,3 +1,4 @@
+import 'package:app/screens/report_body.dart';
 import 'package:flutter/material.dart';
 
 class ReportScreen extends StatelessWidget {
@@ -7,9 +8,9 @@ class ReportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DBT: Radni listovi'),
+        title: const Text('Izveštaj'),
       ),
-      body: Container(),
+      body: const ReportBody(),
     );
   }
 }

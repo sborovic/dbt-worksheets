@@ -31,17 +31,25 @@ class SkillListProvider with ChangeNotifier {
     required String title,
     required String description,
   }) async {
-    await SqliteDb().insertSkill(tableName, {
-      SkillNode.columnTitle: title,
-      SkillNode.columnDescription: description,
-      SkillNode.columnParentId: parentId,
-      SkillNode.columnIsLeaf: true,
-    });
+    await SqliteDb().insertSkill(
+        tableName: tableName,
+        title: title,
+        description: description,
+        parentId: parentId);
     await _update();
   }
 
   Future<void> deleteSkill({required int id}) async {
     await SqliteDb().deleteSkill(tableName, id);
     return await _update();
+  }
+
+  void logPractice(int id, int datetime) async {
+    await SqliteDb().insertIntoLogs(datetime, tableName, id);
+  }
+
+  Future<List<Map<String, Object?>>> generateReport(
+      int datetimeFrom, int datetimeTo) async {
+    return await SqliteDb().generateReport(tableName, datetimeFrom, datetimeTo);
   }
 }

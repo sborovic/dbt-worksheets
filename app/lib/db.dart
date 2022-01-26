@@ -1,8 +1,7 @@
 import 'dart:io';
 
+import 'package:app/models/log_entry.dart';
 import "package:app/models/skill_node.dart";
-import 'package:app/providers/skill_list_provider.dart';
-import 'package:app/widgets/popup_menu_container.dart';
 import 'package:flutter/services.dart';
 
 import "package:path/path.dart";
@@ -45,8 +44,17 @@ class SqliteDb {
     return await openDatabase(path);
   }
 
-  Future<int> insertSkill(String tableName, Map<String, dynamic> values) async {
-    return await (await db).insert(tableName, values);
+  Future<int> insertSkill(
+      {required String tableName,
+      required String title,
+      required String description,
+      required int parentId}) async {
+    return await (await db).insert(tableName, {
+      SkillNode.columnTitle: title,
+      SkillNode.columnDescription: description,
+      SkillNode.columnParentId: parentId,
+      SkillNode.columnIsLeaf: true,
+    });
   }
 
   Future<List<SkillNode>> getChildrenOf(String tableName, int parentId) async {
@@ -88,5 +96,56 @@ class SqliteDb {
   Future<int> deleteSkill(String tableName, int id) async {
     return await (await db)
         .delete(tableName, where: '${SkillNode.columnId} = ?', whereArgs: [id]);
+  }
+
+  Future<int> insertIntoLogs(
+      int datetime, String tableName, int foreignId) async {
+    return await (await db).insert(LogEntry.logsTableName, {
+      LogEntry.columnDatetime: datetime,
+      LogEntry.columnTableName: tableName,
+      LogEntry.columnForeignId: foreignId,
+    });
+  }
+
+  Future<List<Map<String, Object?>>> selectAll(String tableName) async {
+    return await (await db).query(tableName);
+  }
+
+  Future<List<Map<String, Object?>>> generateReport(
+      String tableName, int datetimeFrom, int datetimeTo) async {
+    return (await db).rawQuery('''
+  WITH RECURSIVE
+    /* Count the number of practice sessions per skill */
+    L(foreign_id, count)
+      AS
+        (SELECT foreign_id, COUNT(*)
+          FROM logs
+          WHERE table_name = 'mindfulness_worksheet_4a'
+          GROUP BY foreign_id),
+    /* Use JOIN to add necessary data to L for the initial-select */
+    J(id, title, description, parent_id, count)
+      AS
+        (SELECT M.id, title, description, parent_id, count 
+          FROM L
+          JOIN mindfulness_worksheet_4a AS M ON M.id = L.foreign_id),
+    /* Add parent nodes */
+    P(id, title, description, parent_id, count)
+      AS 
+        (SELECT * FROM J
+        UNION
+        SELECT M.id, M.title, M.description, M.parent_id, NULL
+          FROM P, mindfulness_worksheet_4a as M
+          WHERE M.id = P.parent_id),
+    /* Do inorder traversal */
+    T(id, title, description, parent_id, count, level)
+      AS
+        (SELECT *, 0 FROM P WHERE parent_id IS NULL
+        UNION
+        SELECT P.id, P.title, P.description, P.parent_id, P.count, level+1
+          FROM T, P
+          WHERE T.id = P.parent_id
+        ORDER BY id)
+	SELECT * FROM T;
+  ''');
   }
 }

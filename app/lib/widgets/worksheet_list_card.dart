@@ -1,4 +1,5 @@
 import 'package:app/providers/skill_list_provider.dart';
+import 'package:app/screens/report_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,18 @@ class WorksheetListCard extends StatelessWidget {
             children: <Widget>[
               TextButton(
                 child: const Text('IZVEŠTAJ'),
-                onPressed: () {/* ... */},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ChangeNotifierProvider<SkillListProvider>.value(
+                        value: SkillListProvider(
+                            tableName: tableName, parentId: 0),
+                        child: ReportScreen(),
+                      ),
+                    ),
+                  );
+                },
               ),
               const SizedBox(width: 8),
               TextButton(
@@ -46,14 +58,15 @@ class WorksheetListCard extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) =>
-                            ChangeNotifierProvider<SkillListProvider>.value(
-                              value: SkillListProvider(
-                                  tableName: tableName, parentId: 0),
-                              child: SkillListScreen(
-                                appBarTitle: description,
-                              ),
-                            )),
+                      builder: (context) =>
+                          ChangeNotifierProvider<SkillListProvider>.value(
+                        value: SkillListProvider(
+                            tableName: tableName, parentId: 0),
+                        child: SkillListScreen(
+                          appBarTitle: description,
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),

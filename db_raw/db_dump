@@ -1,7 +1,7 @@
 PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE mindfulness_worksheet_4a (id INTEGER PRIMARY KEY, parent_id INTEGER, title TEXT, description TEXT, is_leaf INTEGER DEFAULT 0);
-INSERT INTO mindfulness_worksheet_4a VALUES(0,NULL,'Observing, Describing, Participating checklist','Mindfulness Worksheet 4a',0);
+INSERT INTO mindfulness_worksheet_4a VALUES(0,NULL,'Observing, Describing, Participating Checklist','Mindfulness Worksheet 4a',0);
 INSERT INTO mindfulness_worksheet_4a VALUES(1,0,NULL,'Practice observing',0);
 INSERT INTO mindfulness_worksheet_4a VALUES(2,1,NULL,'What you see: Watch without following what you see.',1);
 INSERT INTO mindfulness_worksheet_4a VALUES(3,1,NULL,'Sounds: Sounds around you, pitch and sound of someone’s voice, music.',1);
@@ -31,4 +31,5 @@ INSERT INTO mindfulness_worksheet_4a VALUES(26,16,NULL,'Play a sport and throw y
 INSERT INTO mindfulness_worksheet_4a VALUES(27,16,NULL,'Become the count of your breath, becoming only “one” when you count becoming only “two” when you count and so on.',1);
 INSERT INTO mindfulness_worksheet_4a VALUES(28,16,NULL,'Become a word as you slowly say the word over and over and over.',1);
 INSERT INTO mindfulness_worksheet_4a VALUES(29,16,NULL,'Throw caution to the wind, and throw yourself into a social or work activity.',1);
+CREATE TABLE logs (datetime INTEGER, table_name TEXT, foreign_id INTEGER);
 COMMIT;
