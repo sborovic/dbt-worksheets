@@ -1,0 +1,29 @@
+" nalepi tekst
+:normal "*p
+" izbrisi kvacice
+:%s/\v\W{5}\ze\d/\r/g
+" izbrisi donje crtice
+:%s/\v_//g
+" izbrisi razmake na kraju linije
+:%s/\s$//g
+" izbrisi prazne linije
+:g/^$/d
+" sastavi linije koje pocinju malim slovom sa prethodnom
+:g/^\l/normal -J
+" obrisi visestruke razmake
+:%s/\v\s{2,}/ /g
+" obrisi nepotrebne redove
+:g/Ostalo/d
+" definisi parent id i id roditelja
+:g/^\D/execute "normal I(\"" | execute "normal A\", 0, ".line(".")."),"
+" dodaj granicnik
+:normal Go(
+" dopisi parent id listovima
+:g/^([^)]/execute "+1;/^(/-1s/$/\", ".matchstr(getline('.'), '\v\d+\ze\)').", "
+" formatiraj pocetak listova
+:%s/\v^\d+.\s/(\"/
+" formatiraj kraj listova
+:%s/\s$/\=" ".line(".")."),"/
+:normal Gdd
+"dodaj insert
+:normal ggiINSERT INTO mindfulness_worksheet_4a (description, parent_id, id) VALUES
