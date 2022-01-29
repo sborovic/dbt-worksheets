@@ -10,7 +10,7 @@ class ReportScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Izveštaj'),
       ),
-      body: const ReportBody(),
+      body: ReportBody(),
     );
   }
 }

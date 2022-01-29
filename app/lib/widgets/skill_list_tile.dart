@@ -101,11 +101,6 @@ class _SkillListTileState extends State<SkillListTile> {
           index: widget.index,
           textWidget: Text(widget.description),
           trailingWidget: const Icon(Icons.chevron_left),
-          leadingWidget: showDelete
-              ? const Icon(Icons.delete)
-              : Text(
-                  widget.index.toString().padLeft(2, '0'),
-                ),
         ),
       ),
     );

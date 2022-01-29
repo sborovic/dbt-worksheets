@@ -4,12 +4,10 @@ class SkillListTileBody extends StatelessWidget {
   final int index;
   final Widget textWidget;
   final Widget trailingWidget;
-  final Widget leadingWidget;
   const SkillListTileBody(
       {required this.index,
       required this.textWidget,
       required this.trailingWidget,
-      required this.leadingWidget,
       Key? key})
       : super(key: key);
 
@@ -21,7 +19,9 @@ class SkillListTileBody extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 25),
-            child: leadingWidget,
+            child: Text(
+              index.toString().padLeft(2, '0'),
+            ),
           ),
           Flexible(
             child: Container(

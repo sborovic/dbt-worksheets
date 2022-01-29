@@ -15,9 +15,6 @@ class SkillListTileEditable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SkillListTileBody(
-      leadingWidget: Text(
-        index.toString().padLeft(2, '0'),
-      ),
       index: index,
       textWidget: TextField(
         controller: descriptionInput,

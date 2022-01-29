@@ -123,25 +123,25 @@ class SqliteDb {
           WHERE table_name = 'mindfulness_worksheet_4a'
           GROUP BY foreign_id),
     /* Use JOIN to add necessary data to L for the initial-select */
-    J(id, title, description, parent_id, count)
+    J(id, title, description, parent_id, is_leaf, count)
       AS
-        (SELECT M.id, title, description, parent_id, count 
+        (SELECT M.id, title, description, parent_id, is_leaf, count 
           FROM L
           JOIN mindfulness_worksheet_4a AS M ON M.id = L.foreign_id),
     /* Add parent nodes */
-    P(id, title, description, parent_id, count)
+    P(id, title, description, parent_id, is_leaf, count)
       AS 
         (SELECT * FROM J
         UNION
-        SELECT M.id, M.title, M.description, M.parent_id, NULL
+        SELECT M.id, M.title, M.description, M.parent_id, M.is_leaf, NULL
           FROM P, mindfulness_worksheet_4a as M
           WHERE M.id = P.parent_id),
     /* Do inorder traversal */
-    T(id, title, description, parent_id, count, level)
+    T(id, title, description, parent_id, is_leaf, count, level)
       AS
         (SELECT *, 0 FROM P WHERE parent_id IS NULL
         UNION
-        SELECT P.id, P.title, P.description, P.parent_id, P.count, level+1
+        SELECT P.id, P.title, P.description, P.parent_id, P.is_leaf, P.count, level+1
           FROM T, P
           WHERE T.id = P.parent_id
         ORDER BY id)
