@@ -27,3 +27,11 @@
 :normal Gdd
 "dodaj insert
 :normal ggiINSERT INTO mindfulness_worksheet_4a (description, parent_id, id) VALUES
+"dodaj cvor 0
+:normal ggiINSERT INTO mindfulness_worksheet_4a (title, description, parent_id, id) VALUES ('Ček lista za posmatranje, opisivanje i učestovanje', 'Radni list mindfulness 4a', NULL, 0);
+"zameni poslednji zarez
+:$s/,$/;/
+"kreiraj tabelu
+:normal ggiCREATE TABLE mindfulness_worksheet_4a (id INTEGER PRIMARY KEY, parent_id INTEGER, title TEXT, description TEXT, is_leaf INTEGER DEFAULT 0);
+"generisi vrednost is_leaf gde treba
+:normal GoUPDATE mindfulness_worksheet_4a SET is_leaf = 1 WHERE id NOT IN (SELECT DISTINCT parent_id FROM mindfulness_worksheet_4a WHERE parent_id IS NOT NULL);

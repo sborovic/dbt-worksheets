@@ -27,7 +27,7 @@ class SqliteDb {
 
     var exists = await databaseExists(path);
 
-    if (exists) {
+    if (true) {
       // if (!exists) later on...
       print("Creating new copy from asset");
 
@@ -35,7 +35,7 @@ class SqliteDb {
         await Directory(dirname(path)).create(recursive: true);
       } catch (_) {}
 
-      ByteData data = await rootBundle.load(join("assets", "db_en.db"));
+      ByteData data = await rootBundle.load(join("assets", "db_rs.db"));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
