@@ -64,7 +64,7 @@ class _SkillListState extends State<SkillList> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Icon(Icons.add),
-                            Text('Add your own idea'),
+                            Text('Dodaj svoju ideju'),
                           ],
                         ),
                         onPressed: () {

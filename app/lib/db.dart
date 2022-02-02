@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:app/models/log_entry.dart';
 import "package:app/models/skill_node.dart";
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import "package:path/path.dart";
@@ -66,9 +67,11 @@ class SqliteDb {
         SkillNode.columnTitle,
         SkillNode.columnDescription,
         SkillNode.columnIsLeaf,
+        SkillNode.columnIsDeleted,
       ],
-      where: '${SkillNode.columnParentId} = ?',
-      whereArgs: [parentId],
+      where:
+          '${SkillNode.columnParentId} = ? AND ${SkillNode.columnIsDeleted} = ?',
+      whereArgs: [parentId, 0],
     );
     var a = List<SkillNode>.generate(maps.length, (i) {
       return SkillNode.fromMap(maps[i]);
@@ -93,9 +96,27 @@ class SqliteDb {
     return a;
   }
 
+  Future<bool> hasBeenLogged(String tableName, int id) async {
+    return (await (await db).query(LogEntry.logsTableName,
+            where:
+                '${LogEntry.columnTableName} = ? AND ${LogEntry.columnForeignId} = ?',
+            whereArgs: [tableName, id]))
+        .isNotEmpty;
+  }
+
   Future<int> deleteSkill(String tableName, int id) async {
-    return await (await db)
-        .delete(tableName, where: '${SkillNode.columnId} = ?', whereArgs: [id]);
+    final isPresent = await hasBeenLogged(tableName, id);
+    if (isPresent) {
+      return (await db).update(
+        tableName,
+        {SkillNode.columnIsDeleted: 1},
+        where: '${SkillNode.columnId} = ?',
+        whereArgs: [id],
+      );
+    } else {
+      return await (await db).delete(tableName,
+          where: '${SkillNode.columnId} = ?', whereArgs: [id]);
+    }
   }
 
   Future<int> insertIntoLogs(
