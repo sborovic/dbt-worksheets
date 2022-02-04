@@ -1,5 +1,7 @@
 import 'package:app/providers/skill_list_provider.dart';
-import 'package:app/screens/report_screen.dart';
+import 'package:app/screens/report_input_screen.dart';
+import 'package:app/screens/report_output_screen.dart';
+import 'package:easy_localization/src/public_ext.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,23 +40,42 @@ class WorksheetListCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               TextButton(
-                child: const Text('IZVEŠTAJ'),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
+                child: const Text('IZVEŠTAJ').tr(),
+                onPressed: () async {
+                  showDateRangePicker(
+                    useRootNavigator: true,
+                    context: context,
+                    firstDate: DateTime(2021),
+                    lastDate: DateTime.now(),
+                  ).then((range) async {
+                    if (range == null) {
+                      return;
+                    }
+                    await Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
                           ChangeNotifierProvider<SkillListProvider>.value(
                         value: SkillListProvider(
                             tableName: tableName, parentId: 0),
-                        child: ReportScreen(),
+                        child: ReportOutputScreen(),
                       ),
-                    ),
-                  );
+                    ));
+                  });
+
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (context) =>
+                  //         ChangeNotifierProvider<SkillListProvider>.value(
+                  //       value: SkillListProvider(
+                  //           tableName: tableName, parentId: 0),
+                  //       child: ReportInputScreen(),
+                  //     ),
+                  //   ),
+                  // );
                 },
               ),
               const SizedBox(width: 8),
               TextButton(
-                child: const Text('VEŽBANJE'),
+                child: const Text('VEŽBANJE').tr(),
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(

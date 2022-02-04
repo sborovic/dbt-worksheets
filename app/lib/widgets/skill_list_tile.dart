@@ -15,9 +15,8 @@ class SkillListTile extends StatefulWidget {
   final String description;
   final int id;
   final int index;
-  bool isOpened = false;
 
-  SkillListTile(
+  const SkillListTile(
       {required this.description,
       required this.index,
       required this.id,
@@ -40,7 +39,7 @@ class _SkillListTileState extends State<SkillListTile> {
     return Slidable(
       closeOnScroll: true,
       endActionPane: ActionPane(
-        extentRatio: 0.4,
+        extentRatio: 0.3,
         motion: const BehindMotion(),
         children: [
           SlidableAction(
@@ -50,14 +49,14 @@ class _SkillListTileState extends State<SkillListTile> {
               final id = await context.read<SkillListProvider>().logPractice(
                   widget.id, DateTime.now().millisecondsSinceEpoch);
               final snackBar = SnackBar(
-                content: const Text('Uspešno zabeleženo!'),
+                content: const Text('Uspešno zabeleženo.'),
                 action: SnackBarAction(
                     label: 'PONIŠTI',
                     onPressed: () async {
                       await SqliteDb().deleteFromLogs(id);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Beleženje je poništeno!'),
+                          content: Text('Beleženje je poništeno.'),
                         ),
                       );
                     }),
@@ -111,10 +110,9 @@ class _SkillListTileState extends State<SkillListTile> {
           return InkWell(
             onTap: () {
               final controller = Slidable.of(context)!;
-              widget.isOpened
+              Slidable.of(context)!.ratio < 0
                   ? controller.close()
                   : controller.openEndActionPane();
-              widget.isOpened ^= true;
             },
             child: SkillListTileBody(
               index: widget.index,

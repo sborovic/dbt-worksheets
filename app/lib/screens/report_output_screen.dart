@@ -1,8 +1,8 @@
-import 'package:app/screens/report_body.dart';
+import 'package:app/widgets/report_body.dart';
 import 'package:flutter/material.dart';
 
-class ReportScreen extends StatelessWidget {
-  const ReportScreen({Key? key}) : super(key: key);
+class ReportOutputScreen extends StatelessWidget {
+  const ReportOutputScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
