@@ -16,6 +16,7 @@ class SqliteDb {
   static Database? _db;
 
   Future<Database> get db async {
+    // await Future.delayed(Duration(seconds: 3));
     if (_db != null) {
       return _db!;
     }
@@ -126,6 +127,11 @@ class SqliteDb {
       LogEntry.columnTableName: tableName,
       LogEntry.columnForeignId: foreignId,
     });
+  }
+
+  Future<int> deleteFromLogs(int id) async {
+    return (await db).delete(LogEntry.logsTableName,
+        where: '${LogEntry.columnId} = ?', whereArgs: [id]);
   }
 
   Future<List<Map<String, Object?>>> selectAll(String tableName) async {

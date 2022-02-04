@@ -1,9 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class PopupMenuContainer<T> extends StatefulWidget {
   final Widget child;
   final List<PopupMenuEntry<T>> items;
-  final void Function(T) onItemSelected;
+  final void Function(T?) onItemSelected;
 
   const PopupMenuContainer(
       {required this.child,
@@ -22,7 +24,7 @@ class PopupMenuContainerState<T> extends State<PopupMenuContainer<T>> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTapDown: (TapDownDetails details) {
+        onLongPressDown: (LongPressDownDetails details) {
           _tapDownPosition = details.globalPosition;
         },
         onLongPress: () async {
@@ -46,7 +48,7 @@ class PopupMenuContainerState<T> extends State<PopupMenuContainer<T>> {
                     ),
           );
 
-          widget.onItemSelected(value!);
+          widget.onItemSelected(value);
         },
         child: widget.child);
   }

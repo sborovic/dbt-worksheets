@@ -44,8 +44,8 @@ class SkillListProvider with ChangeNotifier {
     return await _update();
   }
 
-  void logPractice(int id, int datetime) async {
-    await SqliteDb().insertIntoLogs(datetime, tableName, id);
+  Future<int> logPractice(int id, int datetime) async {
+    return await SqliteDb().insertIntoLogs(datetime, tableName, id);
   }
 
   Future<List<Map<String, Object?>>> generateReport(

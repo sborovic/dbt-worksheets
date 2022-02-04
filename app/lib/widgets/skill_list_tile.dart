@@ -15,8 +15,9 @@ class SkillListTile extends StatefulWidget {
   final String description;
   final int id;
   final int index;
+  bool isOpened = false;
 
-  const SkillListTile(
+  SkillListTile(
       {required this.description,
       required this.index,
       required this.id,
@@ -46,12 +47,20 @@ class _SkillListTileState extends State<SkillListTile> {
             // An action can be bigger than the others.
 
             onPressed: (_) async {
-              context.read<SkillListProvider>().logPractice(
+              final id = await context.read<SkillListProvider>().logPractice(
                   widget.id, DateTime.now().millisecondsSinceEpoch);
-              debugPrint((await SqliteDb().selectAll('logs')).toString());
               final snackBar = SnackBar(
-                content: const Text('Your practice has been logged!'),
-                action: SnackBarAction(label: 'UNDO', onPressed: () {}),
+                content: const Text('Uspešno zabeleženo!'),
+                action: SnackBarAction(
+                    label: 'PONIŠTI',
+                    onPressed: () async {
+                      await SqliteDb().deleteFromLogs(id);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Beleženje je poništeno!'),
+                        ),
+                      );
+                    }),
               );
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -67,25 +76,26 @@ class _SkillListTileState extends State<SkillListTile> {
         items: const [
           PopupMenuItem(
             value: 'delete',
-            child: Text('Delete permanently'),
+            child: Text('Obriši'),
           ),
         ],
         onItemSelected: (value) async {
+          if (value == null) return;
           if (value == 'delete') {
             await showDialog(
               context: context,
               builder: (_) => AlertDialog(
                 title: const Text('Brisanje stavke'),
-                content:
-                    Text('Da li ste sigurni da ovu stavku želite da obrišete?'),
+                content: const Text(
+                    'Da li ste sigurni da želite da obrišete ovu stavku? PAŽNJA: Brisanje je nepovratno!'),
                 actions: [
                   TextButton(
-                      child: Text('NE'),
+                      child: const Text('NE'),
                       onPressed: () {
                         Navigator.of(context).pop(false);
                       }),
                   TextButton(
-                      child: Text('DA'),
+                      child: const Text('DA'),
                       onPressed: () async {
                         await context
                             .read<SkillListProvider>()
@@ -97,11 +107,22 @@ class _SkillListTileState extends State<SkillListTile> {
             );
           }
         },
-        child: SkillListTileBody(
-          index: widget.index,
-          textWidget: Text(widget.description),
-          trailingWidget: const Icon(Icons.chevron_left),
-        ),
+        child: Builder(builder: (context) {
+          return InkWell(
+            onTap: () {
+              final controller = Slidable.of(context)!;
+              widget.isOpened
+                  ? controller.close()
+                  : controller.openEndActionPane();
+              widget.isOpened ^= true;
+            },
+            child: SkillListTileBody(
+              index: widget.index,
+              textWidget: Text(widget.description),
+              trailingWidget: const Icon(Icons.chevron_left),
+            ),
+          );
+        }),
       ),
     );
   }

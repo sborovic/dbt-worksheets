@@ -4,6 +4,7 @@ class LogEntry {
   static const columnDatetime = 'datetime';
   static const columnTableName = 'table_name';
   static const columnForeignId = 'foreign_id';
+  static const columnId = 'id';
 
   final int datetime;
   final String tableName;

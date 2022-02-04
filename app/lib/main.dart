@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
       themeMode: ThemeMode.system,
       home: const WorksheetListScreen(
-        moduleName: 'Module: Mindfulness',
+        moduleName: 'Mindfulness',
         worksheetTableNames: ['mindfulness_worksheet_4a'],
       ),
     );

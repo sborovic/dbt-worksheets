@@ -43,7 +43,7 @@ class _WorksheetListScreenState extends State<WorksheetListScreen> {
           Container(
             child: Text(
               widget.moduleName,
-              style: const TextStyle(fontSize: 28),
+              style: Theme.of(context).textTheme.headline5,
             ),
             width: double.infinity,
             margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
