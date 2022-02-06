@@ -1,14 +1,17 @@
-import 'package:app/providers/skill_list_provider.dart';
+// Flutter imports:
+import "package:flutter/material.dart";
+import 'package:flutter_slidable/flutter_slidable.dart';
 
+// Package imports:
+import 'package:provider/provider.dart';
+
+// Project imports:
+import "package:app/extensions.dart";
+import 'package:app/models/skill_node.dart';
+import 'package:app/providers/skill_list_provider.dart';
 import 'package:app/widgets/expansion_tile_wrapper.dart';
 import 'package:app/widgets/skill_list_tile.dart';
 import 'package:app/widgets/skill_list_tile_editable.dart';
-import "package:flutter/material.dart";
-
-import "package:app/extensions.dart";
-import 'package:app/models/skill_node.dart';
-
-import 'package:provider/provider.dart';
 
 class SkillList extends StatefulWidget {
   final List<SkillNode>? skillNodes;
@@ -78,6 +81,8 @@ class _SkillListState extends State<SkillList> {
                         showButton: showButton),
             ],
           )
-        : const Center(child: CircularProgressIndicator());
+        : const Center(
+            child: CircularProgressIndicator(),
+          );
   }
 }

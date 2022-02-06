@@ -1,8 +1,12 @@
-import 'package:app/widgets/report_body.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
+import 'package:app/widgets/report_body.dart';
+
 class ReportOutputScreen extends StatelessWidget {
-  const ReportOutputScreen({Key? key}) : super(key: key);
+  final DateTimeRange range;
+  const ReportOutputScreen(this.range, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +14,7 @@ class ReportOutputScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Izveštaj'),
       ),
-      body: ReportBody(),
+      body: ReportBody(from: range.start, to: range.end),
     );
   }
 }

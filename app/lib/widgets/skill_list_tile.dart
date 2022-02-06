@@ -1,13 +1,19 @@
+// Dart imports:
 import 'dart:developer';
 import 'dart:io';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/src/provider.dart';
+
+// Project imports:
 import 'package:app/db.dart';
 import 'package:app/providers/skill_list_provider.dart';
 import 'package:app/widgets/popup_menu_container.dart';
 import 'package:app/widgets/skill_list_tile_body.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/src/provider.dart';
 
 enum MenuOptions { delete }
 
@@ -37,6 +43,7 @@ class _SkillListTileState extends State<SkillListTile> {
   @override
   Widget build(BuildContext context) {
     return Slidable(
+      groupTag: 'all',
       closeOnScroll: true,
       endActionPane: ActionPane(
         extentRatio: 0.3,

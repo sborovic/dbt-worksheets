@@ -1,14 +1,16 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:easy_localization/src/public_ext.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:app/providers/skill_list_provider.dart';
 import 'package:app/screens/report_input_screen.dart';
 import 'package:app/screens/report_output_screen.dart';
-import 'package:easy_localization/src/public_ext.dart';
-
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../models/skill_node.dart';
 import '../db.dart';
-
+import '../models/skill_node.dart';
 import '../screens/skill_list_screen.dart';
 
 class WorksheetListCard extends StatelessWidget {
@@ -56,21 +58,10 @@ class WorksheetListCard extends StatelessWidget {
                           ChangeNotifierProvider<SkillListProvider>.value(
                         value: SkillListProvider(
                             tableName: tableName, parentId: 0),
-                        child: ReportOutputScreen(),
+                        child: ReportOutputScreen(range),
                       ),
                     ));
                   });
-
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) =>
-                  //         ChangeNotifierProvider<SkillListProvider>.value(
-                  //       value: SkillListProvider(
-                  //           tableName: tableName, parentId: 0),
-                  //       child: ReportInputScreen(),
-                  //     ),
-                  //   ),
-                  // );
                 },
               ),
               const SizedBox(width: 8),

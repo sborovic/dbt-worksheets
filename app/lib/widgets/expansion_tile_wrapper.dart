@@ -1,7 +1,12 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:app/providers/skill_list_provider.dart';
 import 'package:app/widgets/skill_list.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ExpansionTileWrapper extends StatefulWidget {
   const ExpansionTileWrapper({

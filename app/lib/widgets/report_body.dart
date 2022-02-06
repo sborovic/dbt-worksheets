@@ -1,16 +1,27 @@
+// Flutter imports:
+
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/src/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+// Project imports:
 import 'package:app/providers/skill_list_provider.dart';
 import 'package:app/widgets/skill_list_tile_body.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ReportBody extends StatelessWidget {
+  final DateTime from;
+  final DateTime to;
   final ts =
       TextStyle(fontFamily: GoogleFonts.courgette().fontFamily, fontSize: 20);
+
   final name = 'Kozica Vođičić';
-  final datetimeFrom = '1. januar 2022.';
-  final datetimeTo = '8. januar 2022.';
-  ReportBody({Key? key}) : super(key: key);
+  ReportBody({required this.from, required this.to, Key? key})
+      : super(key: key);
 
   Text buildNonLeafEntry(BuildContext context, String description, int level) {
     late final TextStyle ts;
@@ -78,13 +89,17 @@ class ReportBody extends StatelessWidget {
     );
   }
 
-  Widget buildHeader(BuildContext context, String name, String datetimeFrom,
-      String datetimeTo) {
+  String _parseDate(BuildContext context, DateTime date) {
+    return DateFormat.yMMMMd(context.locale.toString()).format(date);
+  }
+
+  Widget buildHeader(
+      BuildContext context, String name, DateTime from, DateTime to) {
     return Column(
       children: [
         buildHeaderRow(context, 'Ime:', name),
-        buildHeaderRow(context, 'Datum početka:', datetimeFrom),
-        buildHeaderRow(context, 'Datum kraja:', datetimeTo),
+        buildHeaderRow(context, 'Datum početka:', _parseDate(context, from)),
+        buildHeaderRow(context, 'Datum kraja:', _parseDate(context, to)),
       ],
     );
   }
@@ -93,7 +108,7 @@ class ReportBody extends StatelessWidget {
       BuildContext context, List<Map<String, Object?>> data) {
     return ListView(
       children: [
-        buildHeader(context, name, datetimeFrom, datetimeTo),
+        buildHeader(context, name, from, to),
         ...data.map((map) {
           return buildEntry(context, map);
         }).toList()
@@ -107,7 +122,8 @@ class ReportBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: context.read<SkillListProvider>().generateReport(1, 2),
+        future: context.read<SkillListProvider>().generateReport(
+            from.millisecondsSinceEpoch, to.millisecondsSinceEpoch),
         builder: (BuildContext context,
             AsyncSnapshot<List<Map<String, Object?>>> snapshot) {
           if (snapshot.hasData) {

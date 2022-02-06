@@ -1,8 +1,15 @@
+// Dart imports:
 import 'dart:collection';
+
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Package imports:
 import 'package:tuple/tuple.dart';
-import '../models/skill_node.dart';
+
+// Project imports:
 import '../db.dart';
+import '../models/skill_node.dart';
 
 class SkillListProvider with ChangeNotifier {
   final String tableName;

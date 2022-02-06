@@ -1,6 +1,9 @@
-import 'package:app/widgets/skill_list_tile.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:app/widgets/report_body.dart';
+import 'package:app/widgets/skill_list_tile.dart';
 
 class ReportInputScreen extends StatefulWidget {
   ReportInputScreen({Key? key}) : super(key: key);

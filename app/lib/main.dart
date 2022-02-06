@@ -1,10 +1,12 @@
-import 'package:app/screens/entry_screen.dart';
-import 'package:easy_localization/easy_localization.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'screens/worksheet_list.dart';
+// Package imports:
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
+
+// Project imports:
+import 'package:app/screens/entry_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

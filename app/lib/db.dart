@@ -1,12 +1,17 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:app/models/log_entry.dart';
-import "package:app/models/skill_node.dart";
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// Package imports:
 import "package:path/path.dart";
 import 'package:sqflite/sqflite.dart';
+
+// Project imports:
+import "package:app/models/skill_node.dart";
+import 'package:app/models/log_entry.dart';
 
 class SqliteDb {
   SqliteDb._();
@@ -148,6 +153,7 @@ class SqliteDb {
         (SELECT foreign_id, COUNT(*)
           FROM logs
           WHERE table_name = 'mindfulness_worksheet_4a'
+            AND datetime BETWEEN $datetimeFrom AND $datetimeTo
           GROUP BY foreign_id),
     /* Use JOIN to add necessary data to L for the initial-select */
     J(id, title, description, parent_id, is_leaf, count)

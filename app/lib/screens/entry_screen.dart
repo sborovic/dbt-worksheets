@@ -1,6 +1,9 @@
+// Flutter imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import 'worksheet_list.dart';
+// Project imports:
+import '../widgets/worksheet_list.dart';
 
 class EntryScreen extends StatelessWidget {
   const EntryScreen({Key? key}) : super(key: key);
@@ -9,13 +12,13 @@ class EntryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DBT: Radni listovi'),
+        title: const Text('DBT: Radni listovi').tr(),
       ),
       body: ListView(
-        children: const [
+        children: [
           WorksheetList(
-            moduleName: 'Mindfulness',
-            worksheetTableNames: [
+            moduleName: 'Mindfulness'.tr(),
+            worksheetTableNames: const [
               'mindfulness_worksheet_4a',
             ],
           ),

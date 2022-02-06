@@ -1,11 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:provider/provider.dart';
 
+// Project imports:
 import '../db.dart';
 import '../models/skill_node.dart';
-
-import '../widgets/worksheet_list_card.dart';
+import 'worksheet_list_card.dart';
 
 class WorksheetList extends StatefulWidget {
   final String moduleName;
@@ -58,7 +61,9 @@ class _WorksheetListState extends State<WorksheetList> {
                       description: snapshot.data!.description,
                     );
                   }
-                  return const CircularProgressIndicator();
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 },
               ),
             )
