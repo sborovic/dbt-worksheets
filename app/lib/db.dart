@@ -145,6 +145,9 @@ class SqliteDb {
 
   Future<List<Map<String, Object?>>> generateReport(
       String tableName, int datetimeFrom, int datetimeTo) async {
+    debugPrint(
+        'DA VIDIMO STA IMA:' + (await (await db).query('logs')).toString());
+    debugPrint('A JA TRAZIM OD $datetimeFrom DO $datetimeTo');
     return (await db).rawQuery('''
   WITH RECURSIVE
     /* Count the number of practice sessions per skill */
@@ -152,8 +155,8 @@ class SqliteDb {
       AS
         (SELECT foreign_id, COUNT(*)
           FROM logs
-          WHERE table_name = 'mindfulness_worksheet_4a'
-            AND datetime BETWEEN $datetimeFrom AND $datetimeTo
+          WHERE table_name = '$tableName'
+            AND (datetime BETWEEN $datetimeFrom AND $datetimeTo)
           GROUP BY foreign_id),
     /* Use JOIN to add necessary data to L for the initial-select */
     J(id, title, description, parent_id, is_leaf, count)

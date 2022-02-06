@@ -109,9 +109,14 @@ class ReportBody extends StatelessWidget {
     return ListView(
       children: [
         buildHeader(context, name, from, to),
-        ...data.map((map) {
-          return buildEntry(context, map);
-        }).toList()
+        if (data.isNotEmpty)
+          ...data.map((map) {
+            return buildEntry(context, map);
+          }).toList()
+        else
+          const Center(
+            child: Text('Nema zabeleženih vežbanja'),
+          )
       ]
           .map((widget) =>
               Padding(padding: const EdgeInsets.all(10), child: widget))
@@ -122,16 +127,20 @@ class ReportBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: context.read<SkillListProvider>().generateReport(
-            from.millisecondsSinceEpoch, to.millisecondsSinceEpoch),
-        builder: (BuildContext context,
-            AsyncSnapshot<List<Map<String, Object?>>> snapshot) {
-          if (snapshot.hasData) {
-            debugPrint(snapshot.data!.toString());
-            return buildReportList(context, snapshot.data!);
-          } else {
-            return const CircularProgressIndicator();
-          }
-        });
+      future: context.read<SkillListProvider>().generateReport(
+          from.millisecondsSinceEpoch,
+          to.millisecondsSinceEpoch + Duration.millisecondsPerDay),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<Map<String, Object?>>> snapshot) {
+        if (snapshot.hasData) {
+          debugPrint(snapshot.data!.toString());
+          return buildReportList(context, snapshot.data!);
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 }

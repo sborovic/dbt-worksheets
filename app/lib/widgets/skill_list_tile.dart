@@ -63,7 +63,7 @@ class _SkillListTileState extends State<SkillListTile> {
                       await SqliteDb().deleteFromLogs(id);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Beleženje je poništeno.'),
+                          content: Text('Beleženje poništeno.'),
                         ),
                       );
                     }),

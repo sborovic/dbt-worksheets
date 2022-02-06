@@ -26,7 +26,6 @@ class WorksheetListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("wlc build...............");
     return Card(
       child: Column(
         mainAxisSize: MainAxisSize.min,
