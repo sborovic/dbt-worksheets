@@ -11,7 +11,7 @@ ENV APP_PATH=/home/developer
 WORKDIR $APP_PATH
 
 # Install Flutter
-RUN wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.8.1-stable.tar.xz -O - | tar xJ 
+RUN wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.10.0-stable.tar.xz -O - | tar xJ 
 ENV PATH="$PATH:$APP_PATH/flutter/bin"
 
 # Prepare Android directories and system variables

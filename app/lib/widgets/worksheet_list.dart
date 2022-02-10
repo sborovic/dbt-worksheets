@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:app/providers/skill_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -55,10 +56,14 @@ class _WorksheetListState extends State<WorksheetList> {
                 future: futures[tableName],
                 builder: (context, AsyncSnapshot<SkillNode> snapshot) {
                   if (snapshot.hasData) {
-                    return WorksheetListCard(
-                      tableName: tableName,
-                      title: snapshot.data!.title,
-                      description: snapshot.data!.description,
+                    return ChangeNotifierProvider<SkillListProvider>.value(
+                      value:
+                          SkillListProvider(tableName: tableName, parentId: 0),
+                      child: WorksheetListCard(
+                        tableName: tableName,
+                        title: snapshot.data!.title,
+                        description: snapshot.data!.description,
+                      ),
                     );
                   }
                   return const Center(

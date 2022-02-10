@@ -23,7 +23,6 @@ class SkillListProvider with ChangeNotifier {
   }
   SkillListProvider._({required this.tableName, required this.parentId}) {
     _update();
-    debugPrint('!!!!!!!!!!!!!!!SkillListProvider CONSTRUCTOR obican!!!');
   }
   List<SkillNode>? _items;
 

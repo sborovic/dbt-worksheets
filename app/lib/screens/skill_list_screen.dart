@@ -6,7 +6,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:app/models/skill_node.dart';
 import 'package:app/providers/skill_list_provider.dart';
 import 'package:app/widgets/skill_list.dart';
 
@@ -24,7 +23,9 @@ class SkillListScreen extends StatelessWidget {
       body: Consumer<SkillListProvider>(
         builder: (_, provider, __) {
           return SlidableAutoCloseBehavior(
-              child: SkillList(skillNodes: provider.items));
+            closeWhenTapped: false,
+            child: SkillList(skillNodes: provider.items),
+          );
         },
       ),
     );

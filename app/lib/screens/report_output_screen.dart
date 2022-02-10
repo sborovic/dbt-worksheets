@@ -1,20 +1,30 @@
 // Flutter imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:app/widgets/report_body.dart';
 
+import '../report_helper_methods.dart';
+
 class ReportOutputScreen extends StatelessWidget {
-  final DateTimeRange range;
-  const ReportOutputScreen(this.range, {Key? key}) : super(key: key);
+  const ReportOutputScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Izveštaj'),
+        title: Text('appBarReport').tr(),
+        actions: [
+          IconButton(
+            onPressed: () {
+              generatePdf();
+            },
+            icon: const Icon(Icons.share),
+          )
+        ],
       ),
-      body: ReportBody(from: range.start, to: range.end),
+      body: ReportBody(),
     );
   }
 }

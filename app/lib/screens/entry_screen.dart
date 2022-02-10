@@ -12,12 +12,12 @@ class EntryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DBT: Radni listovi').tr(),
+        title: const Text('appName').tr(),
       ),
       body: ListView(
         children: [
           WorksheetList(
-            moduleName: 'Mindfulness'.tr(),
+            moduleName: 'moduleMindfulness'.tr(),
             worksheetTableNames: const [
               'mindfulness_worksheet_4a',
             ],

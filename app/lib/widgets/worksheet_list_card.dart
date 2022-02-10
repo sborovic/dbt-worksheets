@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:app/providers/skill_list_provider.dart';
-import 'package:app/screens/report_input_screen.dart';
 import 'package:app/screens/report_output_screen.dart';
 import '../db.dart';
 import '../models/skill_node.dart';
@@ -41,42 +40,55 @@ class WorksheetListCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               TextButton(
-                child: const Text('IZVEŠTAJ').tr(),
+                child: const Text('buttonReport').tr(),
                 onPressed: () async {
                   showDateRangePicker(
                     useRootNavigator: true,
                     context: context,
                     firstDate: DateTime(2021),
                     lastDate: DateTime.now(),
-                  ).then((range) async {
-                    if (range == null) {
-                      return;
-                    }
-                    await Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          ChangeNotifierProvider<SkillListProvider>.value(
-                        value: SkillListProvider(
-                            tableName: tableName, parentId: 0),
-                        child: ReportOutputScreen(range),
-                      ),
-                    ));
-                  });
+                  ).then(
+                    (range) async {
+                      if (range == null) {
+                        return;
+                      }
+                      final reportData = await context
+                          .read<SkillListProvider>()
+                          .generateReport(
+                              range.start.millisecondsSinceEpoch,
+                              range.end.millisecondsSinceEpoch +
+                                  Duration.millisecondsPerDay);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => MultiProvider(
+                            providers: [
+                              Provider<DateTimeRange>.value(value: range),
+                              Provider<List<Map<String, Object?>>>.value(
+                                  value: reportData),
+                            ],
+                            child: const ReportOutputScreen(),
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
               const SizedBox(width: 8),
               TextButton(
-                child: const Text('VEŽBANJE').tr(),
+                child: const Text('buttonPractise').tr(),
                 onPressed: () {
+                  final provider = context.read<SkillListProvider>();
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) =>
-                          ChangeNotifierProvider<SkillListProvider>.value(
-                        value: SkillListProvider(
-                            tableName: tableName, parentId: 0),
-                        child: SkillListScreen(
-                          appBarTitle: description,
-                        ),
-                      ),
+                      builder: (context) {
+                        return ChangeNotifierProvider<SkillListProvider>.value(
+                          value: provider,
+                          child: SkillListScreen(
+                            appBarTitle: description,
+                          ),
+                        );
+                      },
                     ),
                   );
                 },

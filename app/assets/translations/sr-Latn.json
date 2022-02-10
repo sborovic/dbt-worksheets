@@ -1,6 +1,7 @@
 {
-    "IZVEŠTAJ": "IZVEŠTAJ",
-    "VEŽBANJE": "VEŽBANJE",
-    "DBT: Radni listovi": "DBT: Radni listovi",
-    "Mindfulness": "Mindfulness"
+    "buttonPractise": "VEŽBANJE",
+    "buttonReport": "@.upper:appBarReport",
+    "appBarReport": "Izveštaj",
+    "appName": "DBT: Radni listovi",
+    "moduleMindfulness": "Mindfulness"
 }
