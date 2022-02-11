@@ -3,9 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:app/widgets/report_body.dart';
 
-import '../report_helper_methods.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/skill_list_provider.dart';
+import '../report_factory.dart';
 
 class ReportOutputScreen extends StatelessWidget {
   const ReportOutputScreen({Key? key}) : super(key: key);
@@ -14,17 +16,18 @@ class ReportOutputScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('appBarReport').tr(),
+        title: const Text('appBarReport').tr(),
         actions: [
           IconButton(
             onPressed: () {
-              generatePdf();
+              //generatePdf(context.read<List<Map<String, Object?>>>());
             },
             icon: const Icon(Icons.share),
           )
         ],
       ),
-      body: ReportBody(),
+      body: ReportBuilder(type: ReportType.materialReport, context: context)
+          .build(),
     );
   }
 }

@@ -28,14 +28,12 @@ class SkillListTileBody extends StatelessWidget {
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 20),
-              // child: Text(description),
               child: textWidget,
             ),
           ),
           Container(
             alignment: Alignment.centerRight,
             margin: const EdgeInsets.symmetric(horizontal: 10),
-            //  child: const Icon(Icons.chevron_left),
             child: trailingWidget,
           ),
         ],
