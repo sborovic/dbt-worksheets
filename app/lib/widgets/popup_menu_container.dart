@@ -2,9 +2,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:flutter_slidable/flutter_slidable.dart';
-
 class PopupMenuContainer<T> extends StatefulWidget {
   final Widget child;
   final List<PopupMenuEntry<T>> items;
@@ -37,18 +34,9 @@ class PopupMenuContainerState<T> extends State<PopupMenuContainer<T>> {
           T? value = await showMenu<T>(
             context: context,
             items: widget.items,
-            position:
-                // RelativeRect.fromLTRB(
-                //   _tapDownPosition!.dx,
-                //   _tapDownPosition!.dy,
-                //   overlay.size.width - _tapDownPosition!.dx,
-                //   overlay.size.height - _tapDownPosition!.dy,
-                // ),
-                RelativeRect.fromRect(
-                    _tapDownPosition! &
-                        const Size(40, 40), // smaller rect, the touch area
-                    Offset.zero & overlay.size // Bigger rect, the entire screen
-                    ),
+            position: RelativeRect.fromRect(
+                _tapDownPosition! & const Size(40, 40),
+                Offset.zero & overlay.size),
           );
 
           widget.onItemSelected(value);

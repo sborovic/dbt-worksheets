@@ -1,8 +1,7 @@
 // Dart imports:
-import 'dart:developer';
-import 'dart:io';
 
 // Flutter imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -56,14 +55,14 @@ class _SkillListTileState extends State<SkillListTile> {
               final id = await context.read<SkillListProvider>().logPractice(
                   widget.id, DateTime.now().millisecondsSinceEpoch);
               final snackBar = SnackBar(
-                content: const Text('Uspešno zabeleženo.'),
+                content: const Text('snackBarLogSuccessful').tr(),
                 action: SnackBarAction(
-                    label: 'PONIŠTI',
+                    label: 'snackBarUndo'.tr(),
                     onPressed: () async {
                       await SqliteDb().deleteFromLogs(id);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Beleženje poništeno.'),
+                        SnackBar(
+                          content: const Text('snackBarUndone').tr(),
                         ),
                       );
                     }),
@@ -74,15 +73,15 @@ class _SkillListTileState extends State<SkillListTile> {
             backgroundColor: Theme.of(context).colorScheme.primary,
             foregroundColor: Theme.of(context).colorScheme.onPrimary,
             icon: Icons.check,
-            label: 'Zabeleži',
+            label: 'slidableLog'.tr(),
           ),
         ],
       ),
       child: PopupMenuContainer<String>(
-        items: const [
+        items: [
           PopupMenuItem(
             value: 'delete',
-            child: Text('Obriši'),
+            child: const Text('popupMenuDelete').tr(),
           ),
         ],
         onItemSelected: (value) async {
@@ -91,17 +90,16 @@ class _SkillListTileState extends State<SkillListTile> {
             await showDialog(
               context: context,
               builder: (_) => AlertDialog(
-                title: const Text('Brisanje stavke'),
-                content: const Text(
-                    'Da li ste sigurni da želite da obrišete ovu stavku? PAŽNJA: Brisanje je nepovratno!'),
+                title: const Text('dialogDelete'),
+                content: const Text('dialogAreYouSure').tr(),
                 actions: [
                   TextButton(
-                      child: const Text('NE'),
+                      child: const Text('buttonNo').tr(),
                       onPressed: () {
                         Navigator.of(context).pop(false);
                       }),
                   TextButton(
-                      child: const Text('DA'),
+                      child: const Text('buttonYes').tr(),
                       onPressed: () async {
                         await context
                             .read<SkillListProvider>()

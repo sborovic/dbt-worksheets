@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:easy_localization/easy_localization.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -65,9 +66,9 @@ class _SkillListState extends State<SkillList> {
                     ? OutlinedButton(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Icon(Icons.add),
-                            Text('Dodaj svoju ideju'),
+                            const Text('buttonAddYourIdea').tr(),
                           ],
                         ),
                         onPressed: () {

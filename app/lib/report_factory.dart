@@ -273,8 +273,8 @@ class ReportBuilder {
   dynamic _buildHeader(DateTime from, DateTime to) {
     return f.createColumn(
       children: [
-        _buildHeaderRow('Datum početka:', f._parseDate(from)),
-        _buildHeaderRow('Datum kraja:', f._parseDate(to)),
+        _buildHeaderRow('reportDateFrom'.tr(), f._parseDate(from)),
+        _buildHeaderRow('reportDateTo'.tr(), f._parseDate(to)),
       ],
     );
   }
@@ -290,7 +290,9 @@ class ReportBuilder {
         }).toList()
       else
         f.createCenter(
-          child: f.createText('Nema zabeleženih vežbanja'),
+          child: f.createText(
+            'reportEmpty'.tr(),
+          ),
         )
     ]
         .map((widget) =>

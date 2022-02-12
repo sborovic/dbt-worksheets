@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/src/provider.dart';
 
 // Project imports:

@@ -3,5 +3,18 @@
     "buttonReport": "@.upper:appBarReport",
     "appBarReport": "Izveštaj",
     "appName": "DBT: Radni listovi",
-    "moduleMindfulness": "Mindfulness"
+    "moduleMindfulness": "Mindfulness",
+    "snackBarLogSuccessful": "Uspešno zabeleženo.",
+    "snackBarUndo": "PONIŠTI",
+    "snackBarUndone": "Beleženje poništeno.",
+    "slidableLog": "Zabeleži",
+    "popupMenuDelete": "Obriši",
+    "buttonNo": "NE",
+    "buttonYes": "Da",
+    "dialogDelete": "Brisanje stavke",
+    "dialogAreYouSure": "Da li ste sigurni da želite da obrišete ovu stavku? PAŽNJA: Brisanje je nepovratno!",
+    "reportDateFrom": "Datum početka:",
+    "reportDateTo": "Datum kraja:",
+    "reportEmpty": "Nema zabeleženih vežbanja",
+    "buttonAddYourIdea": "Dodaj svoju ideju"
 }
