@@ -11,45 +11,44 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:printing/printing.dart';
 
-final pdf = pw.Document();
-// void generatePdf(List<Map<String, Object?>> reportData) async {
-//   pdf.addPage(Page(
-//       pageFormat: PdfPageFormat.a4,
-//       build: (_) {
-//         return pw.Center(
-//           child: Bullet(),
-//         ); // Center
-//       }));
-//   var status = await Permission.storage.status;
+void generatePdf(m.BuildContext context) async {
+  final defaultTextFont = await PdfGoogleFonts.courgetteRegular();
+  final pdf = pw.Document(
+      theme:
+          pw.ThemeData(defaultTextStyle: pw.TextStyle(font: defaultTextFont)));
+  pdf.addPage(
+    pw.Page(
+      pageFormat: PdfPageFormat.a4,
+      build: (_) {
+        return ReportBuilder(type: ReportType.pdfReport, context: context)
+            .build();
+      },
+    ),
+  );
+  var status = await Permission.storage.status;
 
-//   if (!status.isGranted) {
-//     await Permission.storage.request();
-//   }
+  if (!status.isGranted) {
+    await Permission.storage.request();
+  }
 
-//   final file = await File("/storage/emulated/0/Download/TEST.pdf");
+  final file = File("/storage/emulated/0/Download/TEST.pdf");
 
-//   await file.writeAsBytes(await pdf.save());
-//   Share.shareFiles(["/storage/emulated/0/Download/TEST.pdf"],
-//       mimeTypes: ['application/pdf'],
-//       subject: 'Ovo je subject',
-//       text: 'Ovo je tekst');
-
-// final directory =
-//     (await getExternalStorageDirectories(type: StorageDirectory.downloads))!
-//         .first;
-// debugPrint("OVDE SAMMMMMMMMMM" + directory.toString());
-// File file2 = File("${directory.path}/test.txt");
-// await file2.writeAsString('TEST ONE');
-// }
+  await file.writeAsBytes(await pdf.save());
+  Share.shareFiles(["/storage/emulated/0/Download/TEST.pdf"],
+      mimeTypes: ['application/pdf'],
+      subject: 'Ovo je subject',
+      text: 'Ovo je tekst');
+}
 
 abstract class AbstractReportFactory {
   m.BuildContext context;
   AbstractReportFactory(this.context);
-  dynamic get textStyleHeadline5;
-  dynamic get textStyleHeadline6;
-  dynamic get textStyleSubtitle1;
+  dynamic get textStyleHeadline;
+  dynamic get textStyleTitle;
   dynamic get statisticsTextStyle;
+  dynamic get textStyleLabel;
   dynamic createText(String data, {style});
   dynamic createRow({required List<dynamic> children});
   dynamic createExpanded({int flex = 1, required child});
@@ -65,68 +64,67 @@ abstract class AbstractReportFactory {
   }
 }
 
-// class PdfReportFactory extends AbstractReportFactory {
-//   PdfReportFactory(m.BuildContext context) : super(context);
+class PdfReportFactory extends AbstractReportFactory {
+  PdfReportFactory(m.BuildContext context) : super(context);
 
-//   @override
-//   dynamic createText(String data, {style}) {
-//     return pw.Text(data, style: style);
-//   }
+  @override
+  dynamic createText(String data, {style}) {
+    return pw.Text(data, style: style);
+  }
 
-//   @override
-//   dynamic get textStyleHeadline5 => pw.Theme.of(context).textTheme.headline5!;
+  @override
+  dynamic get textStyleHeadline => pw.TextStyle();
 
-//   @override
-//   dynamic get textStyleHeadline6 => pw.Theme.of(context).textTheme.headline6!;
+  @override
+  dynamic get textStyleTitle => pw.TextStyle();
 
-//   @override
-//   dynamic get textStyleSubtitle1 => pw.Theme.of(context).textTheme.subtitle1!;
+  @override
+  get textStyleLabel => pw.TextStyle();
 
-//   @override
-//   dynamic createRow({required List<dynamic> children}) {
-//     return pw.Row(children: children.cast<m.Widget>());
-//   }
+  @override
+  dynamic get statisticsTextStyle => pw.TextStyle();
 
-//   @override
-//   createExpanded({int flex = 1, required child}) {
-//     return pw.Expanded(flex: flex, child: child);
-//   }
+  @override
+  dynamic createRow({required List<dynamic> children}) {
+    return pw.Row(children: children.cast<pw.Widget>());
+  }
 
-//   @override
-//   dynamic createEdgeInsetsSymmetric(
-//       {required double horizontal, required double vertical}) {
-//     return pw.EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
-//   }
+  @override
+  createExpanded({int flex = 1, required child}) {
+    return pw.Expanded(flex: flex, child: child);
+  }
 
-//   @override
-//   dynamic createPadding({required padding, required child}) {
-//     return pw.Padding(padding: padding, child: child);
-//   }
+  @override
+  dynamic createEdgeInsetsSymmetric(
+      {required double horizontal, required double vertical}) {
+    return pw.EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
+  }
 
-//   @override
-//   dynamic createCenter({required child}) {
-//     return pw.Center(child: child);
-//   }
+  @override
+  dynamic createPadding({required padding, required child}) {
+    return pw.Padding(padding: padding, child: child);
+  }
 
-//   @override
-//   get statisticsTextStyle => pw.TextStyle(
-//       fontFamily: GoogleFonts.courgette().fontFamily, fontSize: 20);
+  @override
+  dynamic createCenter({required child}) {
+    return pw.Center(child: child);
+  }
 
-//   @override
-//   dynamic createEdgeInsetsAll(double all) {
-//     return pw.EdgeInsets.all(all);
-//   }
+  @override
+  dynamic createEdgeInsetsAll(double all) {
+    return pw.EdgeInsets.all(all);
+  }
 
-//   @override
-//   dynamic createColumn({required List<dynamic> children}) {
-//     return pw.Column(children: children.cast<pw.Widget>());
-//   }
+  @override
+  dynamic createColumn({required List<dynamic> children}) {
+    return pw.Column(children: children.cast<pw.Widget>());
+  }
 
-//   @override
-//   dynamic createListView({required List children}) {
-//     return pw.ListView(children: children.cast<pw.Widget>());
-//   }
-// }
+  @override
+  dynamic createListView({required List children}) {
+    return pw.ListView(children: children.cast<pw.Widget>());
+  }
+}
 
 class MaterialReportFactory extends AbstractReportFactory {
   MaterialReportFactory(m.BuildContext context) : super(context);
@@ -137,13 +135,17 @@ class MaterialReportFactory extends AbstractReportFactory {
   }
 
   @override
-  dynamic get textStyleHeadline5 => m.Theme.of(context).textTheme.headline5!;
+  dynamic get textStyleHeadline => m.Theme.of(context).textTheme.headlineSmall;
 
   @override
-  dynamic get textStyleHeadline6 => m.Theme.of(context).textTheme.headline6!;
+  dynamic get textStyleTitle => m.Theme.of(context).textTheme.titleLarge;
 
   @override
-  dynamic get textStyleSubtitle1 => m.Theme.of(context).textTheme.subtitle1!;
+  dynamic get textStyleLabel => m.Theme.of(context).textTheme.subtitle1;
+
+  @override
+  dynamic get statisticsTextStyle =>
+      m.TextStyle(fontFamily: GoogleFonts.courgette().fontFamily, fontSize: 20);
 
   @override
   dynamic createRow({required List<dynamic> children}) {
@@ -172,10 +174,6 @@ class MaterialReportFactory extends AbstractReportFactory {
   }
 
   @override
-  get statisticsTextStyle =>
-      m.TextStyle(fontFamily: GoogleFonts.courgette().fontFamily, fontSize: 20);
-
-  @override
   dynamic createEdgeInsetsAll(double all) {
     return m.EdgeInsets.all(all);
   }
@@ -198,19 +196,17 @@ class ReportBuilder {
   ReportBuilder({required ReportType type, required m.BuildContext context})
       : f = (type == ReportType.materialReport)
             ? MaterialReportFactory(context)
-            : MaterialReportFactory(context);
+            : PdfReportFactory(context);
 
   dynamic _buildNonLeafEntry(String description, int level) {
     late final dynamic ts;
     switch (level) {
       case 0:
-        ts = f.textStyleHeadline5;
+        ts = f.textStyleHeadline;
         break;
       case 1:
-        ts = f.textStyleHeadline6;
+        ts = f.textStyleTitle;
         break;
-      default:
-        ts = f.textStyleSubtitle1;
     }
     return f.createText(description, style: ts);
   }
@@ -252,7 +248,7 @@ class ReportBuilder {
         children: [
           f.createText(
             label + ' ',
-            style: f.textStyleSubtitle1,
+            style: f.textStyleLabel,
           ),
           f.createExpanded(
             child: f.createText(

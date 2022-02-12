@@ -45,7 +45,7 @@ class WorksheetListCard extends StatelessWidget {
                   showDateRangePicker(
                     useRootNavigator: true,
                     context: context,
-                    firstDate: DateTime(2021),
+                    firstDate: DateTime(2022),
                     lastDate: DateTime.now(),
                   ).then(
                     (range) async {

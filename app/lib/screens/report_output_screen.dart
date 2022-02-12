@@ -20,7 +20,7 @@ class ReportOutputScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              //generatePdf(context.read<List<Map<String, Object?>>>());
+              generatePdf(context);
             },
             icon: const Icon(Icons.share),
           )

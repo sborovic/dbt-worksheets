@@ -42,6 +42,6 @@ class SkillNode {
 
   @override
   String toString() {
-    return 'SkillNode{id: $id, parentId: $parentId, title: $title, description: $description, isLeaf: $isLeaf}, isDeleted: $isDeleted';
+    return 'SkillNode{id: $id, parentId: $parentId, title: $title, description: $description, isLeaf: $isLeaf, isDeleted: $isDeleted}';
   }
 }
