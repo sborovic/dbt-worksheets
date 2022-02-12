@@ -20,14 +20,19 @@ class ReportOutputScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
+              debugPrint(Theme.of(context).textTheme.bodyMedium?.fontFamily);
               generatePdf(context);
             },
             icon: const Icon(Icons.share),
           )
         ],
       ),
-      body: ReportBuilder(type: ReportType.materialReport, context: context)
-          .build(),
+      body: ListView(
+        children:
+            ReportBuilder(type: ReportType.materialReport, context: context)
+                .build()
+                .cast<Widget>(),
+      ),
     );
   }
 }

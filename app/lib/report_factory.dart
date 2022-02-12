@@ -14,16 +14,20 @@ import 'package:share_plus/share_plus.dart';
 import 'package:printing/printing.dart';
 
 void generatePdf(m.BuildContext context) async {
-  final defaultTextFont = await PdfGoogleFonts.courgetteRegular();
-  final pdf = pw.Document(
-      theme:
-          pw.ThemeData(defaultTextStyle: pw.TextStyle(font: defaultTextFont)));
+  final defaultFont = await PdfGoogleFonts.notoSerifRegular();
+  final defaultFontBold = await PdfGoogleFonts.notoSerifBold();
+  final themeData =
+      pw.ThemeData.withFont(base: defaultFont, bold: defaultFontBold);
+  final pdf = pw.Document(theme: themeData);
   pdf.addPage(
-    pw.Page(
+    pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
-      build: (_) {
-        return ReportBuilder(type: ReportType.pdfReport, context: context)
-            .build();
+      build: (pdfContext) {
+        return ReportBuilder(
+          type: ReportType.pdfReport,
+          context: context,
+          pdfContext: pdfContext,
+        ).build().cast<pw.Widget>();
       },
     ),
   );
@@ -36,10 +40,11 @@ void generatePdf(m.BuildContext context) async {
   final file = File("/storage/emulated/0/Download/TEST.pdf");
 
   await file.writeAsBytes(await pdf.save());
-  Share.shareFiles(["/storage/emulated/0/Download/TEST.pdf"],
-      mimeTypes: ['application/pdf'],
-      subject: 'Ovo je subject',
-      text: 'Ovo je tekst');
+  // Share.shareFiles(["/storage/emulated/0/Download/TEST.pdf"],
+  //     // mimeTypes: ['application/pdf'],
+  //     subject: 'Ovo je subject',
+  //     text: 'Ovo je tekst');
+  OpenFile.open("storage/emulated/0/Download/TEST.pdf");
 }
 
 abstract class AbstractReportFactory {
@@ -47,7 +52,7 @@ abstract class AbstractReportFactory {
   AbstractReportFactory(this.context);
   dynamic get textStyleHeadline;
   dynamic get textStyleTitle;
-  dynamic get statisticsTextStyle;
+  dynamic get textStyleStatistics;
   dynamic get textStyleLabel;
   dynamic createText(String data, {style});
   dynamic createRow({required List<dynamic> children});
@@ -65,7 +70,8 @@ abstract class AbstractReportFactory {
 }
 
 class PdfReportFactory extends AbstractReportFactory {
-  PdfReportFactory(m.BuildContext context) : super(context);
+  final pw.Context pdfContext;
+  PdfReportFactory(m.BuildContext context, this.pdfContext) : super(context);
 
   @override
   dynamic createText(String data, {style}) {
@@ -73,16 +79,16 @@ class PdfReportFactory extends AbstractReportFactory {
   }
 
   @override
-  dynamic get textStyleHeadline => pw.TextStyle();
+  dynamic get textStyleHeadline => pw.Theme.of(pdfContext).header0;
 
   @override
-  dynamic get textStyleTitle => pw.TextStyle();
+  dynamic get textStyleTitle => pw.Theme.of(pdfContext).header2;
 
   @override
-  get textStyleLabel => pw.TextStyle();
+  dynamic get textStyleLabel => pw.Theme.of(pdfContext).header5;
 
   @override
-  dynamic get statisticsTextStyle => pw.TextStyle();
+  dynamic get textStyleStatistics => pw.Theme.of(pdfContext).header5;
 
   @override
   dynamic createRow({required List<dynamic> children}) {
@@ -141,10 +147,10 @@ class MaterialReportFactory extends AbstractReportFactory {
   dynamic get textStyleTitle => m.Theme.of(context).textTheme.titleLarge;
 
   @override
-  dynamic get textStyleLabel => m.Theme.of(context).textTheme.subtitle1;
+  dynamic get textStyleLabel => m.Theme.of(context).textTheme.titleMedium;
 
   @override
-  dynamic get statisticsTextStyle =>
+  dynamic get textStyleStatistics =>
       m.TextStyle(fontFamily: GoogleFonts.courgette().fontFamily, fontSize: 20);
 
   @override
@@ -193,10 +199,13 @@ enum ReportType { materialReport, pdfReport }
 
 class ReportBuilder {
   final AbstractReportFactory f;
-  ReportBuilder({required ReportType type, required m.BuildContext context})
+  ReportBuilder(
+      {required ReportType type,
+      required m.BuildContext context,
+      pw.Context? pdfContext})
       : f = (type == ReportType.materialReport)
             ? MaterialReportFactory(context)
-            : PdfReportFactory(context);
+            : PdfReportFactory(context, pdfContext!);
 
   dynamic _buildNonLeafEntry(String description, int level) {
     late final dynamic ts;
@@ -225,7 +234,7 @@ class ReportBuilder {
         child: f.createCenter(
           child: f.createText(
             count.toString(),
-            style: f.statisticsTextStyle,
+            style: f.textStyleStatistics,
           ),
         ),
       ),
@@ -253,7 +262,7 @@ class ReportBuilder {
           f.createExpanded(
             child: f.createText(
               content,
-              style: f.statisticsTextStyle,
+              style: f.textStyleStatistics,
             ),
           ),
         ],
@@ -273,21 +282,19 @@ class ReportBuilder {
   dynamic build() {
     final reportData = f.context.read<List<Map<String, Object?>>>();
     final range = f.context.read<m.DateTimeRange>();
-    return f.createListView(
-      children: [
-        _buildHeader(range.start, range.end),
-        if (reportData.isNotEmpty)
-          ...reportData.map((map) {
-            return _buildEntry(map);
-          }).toList()
-        else
-          f.createCenter(
-            child: f.createText('Nema zabeleženih vežbanja'),
-          )
-      ]
-          .map((widget) => f.createPadding(
-              padding: f.createEdgeInsetsAll(10), child: widget))
-          .toList(),
-    );
+    return [
+      _buildHeader(range.start, range.end),
+      if (reportData.isNotEmpty)
+        ...reportData.map((map) {
+          return _buildEntry(map);
+        }).toList()
+      else
+        f.createCenter(
+          child: f.createText('Nema zabeleženih vežbanja'),
+        )
+    ]
+        .map((widget) =>
+            f.createPadding(padding: f.createEdgeInsetsAll(10), child: widget))
+        .toList();
   }
 }
