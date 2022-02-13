@@ -43,6 +43,7 @@ class WorksheetListCard extends StatelessWidget {
                 child: const Text('buttonReport').tr(),
                 onPressed: () async {
                   showDateRangePicker(
+                    saveText: 'dateRangePickerSave'.tr(),
                     useRootNavigator: true,
                     context: context,
                     firstDate: DateTime(2022),
@@ -76,7 +77,7 @@ class WorksheetListCard extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               TextButton(
-                child: const Text('buttonPractise').tr(),
+                child: const Text('buttonSkills').tr(),
                 onPressed: () {
                   final provider = context.read<SkillListProvider>();
                   Navigator.of(context).push(

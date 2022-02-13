@@ -47,6 +47,7 @@ dependencies:
   open_file: ^3.2.1
   share_plus: ^3.0.4
   printing: ^5.7.2
+  easy_localization_loader: ^1.0.0
 
 dev_dependencies:
   import_sorter: ^4.6.0

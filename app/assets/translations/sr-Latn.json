@@ -1,5 +1,5 @@
 {
-    "buttonPractise": "VEŽBANJE",
+    "buttonSkills": "VEŠTINE",
     "buttonReport": "@.upper:appBarReport",
     "appBarReport": "Izveštaj",
     "appName": "DBT: Radni listovi",
@@ -10,11 +10,12 @@
     "slidableLog": "Zabeleži",
     "popupMenuDelete": "Obriši",
     "buttonNo": "NE",
-    "buttonYes": "Da",
+    "buttonYes": "DA",
     "dialogDelete": "Brisanje stavke",
-    "dialogAreYouSure": "Da li ste sigurni da želite da obrišete ovu stavku? PAŽNJA: Brisanje je nepovratno!",
+    "dialogAreYouSure": "Da li ste sigurni da želite da obrišete ovu stavku?",
     "reportDateFrom": "Datum početka:",
     "reportDateTo": "Datum kraja:",
     "reportEmpty": "Nema zabeleženih vežbanja",
-    "buttonAddYourIdea": "Dodaj svoju ideju"
+    "buttonAddYourIdea": "Dodaj svoju ideju",
+    "dateRangePickerSave": "KREIRAJ"
 }

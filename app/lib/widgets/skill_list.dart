@@ -63,17 +63,20 @@ class _SkillListState extends State<SkillList> {
               if (widget.skillNodes!.isEmpty ||
                   widget.skillNodes!.first.isLeaf == true)
                 _showButton
-                    ? OutlinedButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.add),
-                            const Text('buttonAddYourIdea').tr(),
-                          ],
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: OutlinedButton(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.add),
+                              const Text('buttonAddYourIdea').tr(),
+                            ],
+                          ),
+                          onPressed: () {
+                            hideButton();
+                          },
                         ),
-                        onPressed: () {
-                          hideButton();
-                        },
                       )
                     : SkillListTileEditable(
                         index: widget.skillNodes!.isNotEmpty

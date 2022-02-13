@@ -1,0 +1,21 @@
+{
+    "buttonSkills": "SKILLS",
+    "buttonReport": "@.upper:appBarReport",
+    "appBarReport": "Report",
+    "appName": "DBT: Worksheets",
+    "moduleMindfulness": "Mindfulness",
+    "snackBarLogSuccessful": "Your practice has been logged.",
+    "snackBarUndo": "UNDO",
+    "snackBarUndone": "Successfully deleted from logs.",
+    "slidableLog": "Log",
+    "popupMenuDelete": "Delete permanently",
+    "buttonNo": "NO",
+    "buttonYes": "YES",
+    "dialogDelete": "Delete item",
+    "dialogAreYouSure": "Are you sure that you want to delete this item?",
+    "reportDateFrom": "Start Date:",
+    "reportDateTo": "End Date:",
+    "reportEmpty": "There are no logged practices.",
+    "buttonAddYourIdea": "Add your own idea",
+    "dateRangePickerSave": "CREATE"
+}

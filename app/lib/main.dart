@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -7,6 +8,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 
 // Project imports:
 import 'package:app/screens/entry_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +18,7 @@ void main() async {
     EasyLocalization(
         supportedLocales: const [
           Locale.fromSubtags(languageCode: 'sr', scriptCode: 'Latn'),
+          //Locale.fromSubtags(languageCode: 'en'),
         ],
         path: 'assets/translations',
         fallbackLocale:
@@ -29,14 +32,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      theme: FlexThemeData.light(scheme: FlexScheme.mallardGreen),
-      darkTheme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
-      themeMode: ThemeMode.system,
-      home: const EntryScreen(),
+    return ChangeNotifierProvider<ThemeProvider>(
+      create: (_) => ThemeProvider(),
+      child: Consumer<ThemeProvider>(
+        builder: (_, provider, __) {
+          return MaterialApp(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            theme: FlexThemeData.light(scheme: FlexScheme.mallardGreen),
+            darkTheme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
+            themeMode: provider.mode,
+            home: const EntryScreen(),
+          );
+        },
+      ),
     );
   }
 }

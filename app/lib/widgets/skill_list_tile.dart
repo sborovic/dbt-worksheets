@@ -42,6 +42,7 @@ class _SkillListTileState extends State<SkillListTile> {
   @override
   Widget build(BuildContext context) {
     return Slidable(
+      key: ValueKey<int>(widget.id),
       groupTag: 'all',
       closeOnScroll: true,
       endActionPane: ActionPane(
@@ -90,7 +91,7 @@ class _SkillListTileState extends State<SkillListTile> {
             await showDialog(
               context: context,
               builder: (_) => AlertDialog(
-                title: const Text('dialogDelete'),
+                title: const Text('dialogDelete').tr(),
                 content: const Text('dialogAreYouSure').tr(),
                 actions: [
                   TextButton(
