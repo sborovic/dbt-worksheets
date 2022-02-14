@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../constants.dart' as Constants;
+import '../constants.dart' as constants;
 import 'entry_screen.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -14,18 +14,12 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-  final Map<String, String> titles = const {
-    'en': 'Select Your Language:',
-    'sr-Latn': 'Izaberite jezik:'
-  };
   String? _language;
-  late String _firstPageTitle;
 
   @override
   initState() {
     super.initState();
     _language = widget.locale.toLanguageTag();
-    _firstPageTitle = titles[_language]!;
     debugPrint("U INIT STATE SAM SETOVAO> " + _language!);
   }
 
@@ -38,8 +32,8 @@ class _IntroScreenState extends State<IntroScreen> {
       groupValue: _language,
       onChanged: (String? value) {
         setState(() {
-          _firstPageTitle = titles[value]!;
           _language = value;
+          context.setLocale(constants.locales[value]!);
         });
       },
     );
@@ -50,7 +44,7 @@ class _IntroScreenState extends State<IntroScreen> {
         image: SvgPicture.asset(
           'assets/images/undraw_around_the_world.svg',
         ),
-        title: _firstPageTitle,
+        title: 'introPageOneTitle'.tr(),
         bodyWidget: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -67,33 +61,26 @@ class _IntroScreenState extends State<IntroScreen> {
     return IntroductionScreen(
       key: introKey,
       showNextButton: true,
-      overrideNext: IconButton(
-        onPressed: () async {
-          if (_language != null) {
-            introKey.currentState?.next();
-            context.setLocale(Constants.locales[_language]!);
-            (await SharedPreferences.getInstance())
-                .setString('language', _language!);
-          }
-        },
-        icon: const Icon(Icons.arrow_forward),
-      ),
+      next: const Icon(Icons.arrow_forward),
       pages: [
         buildFirstScreen(context),
         PageViewModel(
-          title: 'Veštine',
-          body: "Zabeležite svoje vežbanje veština...",
+          title: 'introPageTwoTitle'.tr(),
+          body: "introPageTwoBody".tr(),
           image: SvgPicture.asset('assets/images/undraw_to_do.svg'),
         ),
         PageViewModel(
-          title: 'Izveštaj',
-          body:
-              "...i kreirajte izveštaj za vremenski period koji sami odabete. ",
+          title: 'introPageThreeTitle'.tr(),
+          body: "introPageThreeBody".tr(),
           image: SvgPicture.asset('assets/images/undraw_metrics.svg'),
         ),
       ],
-      done: const Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
-      onDone: () {
+      done: const Text("introButtonDone",
+              style: TextStyle(fontWeight: FontWeight.w600))
+          .tr(),
+      onDone: () async {
+        (await SharedPreferences.getInstance())
+            .setString('language', _language!);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (_) => const EntryScreen(),

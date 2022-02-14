@@ -19,7 +19,7 @@ bool? firstRun;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await IsFirstRun.reset();
+  // await IsFirstRun.reset();
   firstRun = await IsFirstRun.isFirstRun();
   final prefs = await SharedPreferences.getInstance();
   runApp(
@@ -27,7 +27,7 @@ void main() async {
         supportedLocales: Constants.locales.values.toList(),
         path: 'assets/translations',
         fallbackLocale: Constants.locales['en'],
-        startLocale: Constants.locales['sr-Latn'],
+        startLocale: Constants.locales[prefs.getString('language')],
         child: const MyApp()),
   );
 }

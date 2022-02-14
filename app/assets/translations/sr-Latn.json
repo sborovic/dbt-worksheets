@@ -1,7 +1,7 @@
 {
-    "buttonSkills": "VEŠTINE",
-    "buttonReport": "@.upper:appBarReport",
-    "appBarReport": "Izveštaj",
+    "buttonSkills": "@.upper:introPageTwoTitle",
+    "buttonReport": "@.upper:introPageThreeTitle",
+    "appBarReport": "@:introPageThreeTitle",
     "appName": "DBT: Radni listovi",
     "moduleMindfulness": "Mindfulness",
     "snackBarLogSuccessful": "Uspešno zabeleženo.",
@@ -17,5 +17,11 @@
     "reportDateTo": "Datum kraja:",
     "reportEmpty": "Nema zabeleženih vežbanja",
     "buttonAddYourIdea": "Dodaj svoju ideju",
-    "dateRangePickerSave": "KREIRAJ"
+    "dateRangePickerSave": "KREIRAJ",
+    "introPageOneTitle": "Izaberi jezik:",
+    "introPageTwoTitle": "Veštine",
+    "introPageTwoBody": "Zabeležite svoje vežbanje veština...",
+    "introPageThreeTitle": "Izveštaj",
+    "introPageThreeBody": "...i kreirajte izveštaj za vremenski period koji sami odabete.",
+    "introButtonDone": "DALJE"
 }

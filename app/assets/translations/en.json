@@ -1,7 +1,7 @@
 {
-    "buttonSkills": "SKILLS",
-    "buttonReport": "@.upper:appBarReport",
-    "appBarReport": "Report",
+    "buttonSkills": "@.upper:introPageTwoTitle",
+    "buttonReport": "@.upper:introPageThreeTitle",
+    "appBarReport": "@:introPageThreeTitle",
     "appName": "DBT: Worksheets",
     "moduleMindfulness": "Mindfulness",
     "snackBarLogSuccessful": "Your practice has been logged.",
@@ -17,5 +17,11 @@
     "reportDateTo": "End Date:",
     "reportEmpty": "There are no logged practices.",
     "buttonAddYourIdea": "Add your own idea",
-    "dateRangePickerSave": "CREATE"
+    "dateRangePickerSave": "CREATE",
+    "introPageOneTitle": "Select Your Language:",
+    "introPageTwoTitle": "Skills",
+    "introPageTwoBody": "Log your skills practice...",
+    "introPageThreeTitle": "Report",
+    "introPageThreeBody": "...and create a report for the chosen time period.",
+    "introButtonDone": "GOT IT"
 }
