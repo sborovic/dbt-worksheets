@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:app/providers/theme_provider.dart';
+import 'package:app/screens/intro_screen.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -9,16 +10,20 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 // Project imports:
 import 'package:app/screens/entry_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:is_first_run/is_first_run.dart';
+
+bool? firstRun;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-
+  await IsFirstRun.reset();
+  firstRun = await IsFirstRun.isFirstRun();
   runApp(
     EasyLocalization(
         supportedLocales: const [
           Locale.fromSubtags(languageCode: 'sr', scriptCode: 'Latn'),
-          //Locale.fromSubtags(languageCode: 'en'),
+          Locale.fromSubtags(languageCode: 'en'),
         ],
         path: 'assets/translations',
         fallbackLocale:
@@ -43,7 +48,7 @@ class MyApp extends StatelessWidget {
             theme: FlexThemeData.light(scheme: FlexScheme.mallardGreen),
             darkTheme: FlexThemeData.dark(scheme: FlexScheme.mallardGreen),
             themeMode: provider.mode,
-            home: const EntryScreen(),
+            home: firstRun! ? const IntroScreen() : const EntryScreen(),
           );
         },
       ),
