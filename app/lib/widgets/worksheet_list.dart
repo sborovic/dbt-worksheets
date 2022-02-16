@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:app/providers/skill_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
+import 'package:app/providers/skill_list_provider.dart';
 import '../db.dart';
 import '../models/skill_node.dart';
 import 'worksheet_list_card.dart';

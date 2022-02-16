@@ -1,9 +1,10 @@
 // Flutter imports:
-import 'package:easy_localization/easy_localization.dart';
+import 'package:app/screens/skill_list_screen.dart';
 import "package:flutter/material.dart";
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
@@ -25,20 +26,22 @@ class SkillList extends StatefulWidget {
 class _SkillListState extends State<SkillList> {
   bool _showButton = true;
 
-  void showButton() {
-    setState(() {
-      _showButton = true;
-    });
-  }
-
-  void hideButton() {
-    setState(() {
-      _showButton = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    void showButton() {
+      context.read<ShowFABWrapper>().visible = true;
+      setState(() {
+        _showButton = true;
+      });
+    }
+
+    void hideButton() {
+      context.read<ShowFABWrapper>().visible = false;
+      setState(() {
+        _showButton = false;
+      });
+    }
+
     return widget.skillNodes != null
         ? ListView(
             addAutomaticKeepAlives: true,

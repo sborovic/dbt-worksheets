@@ -1,10 +1,10 @@
 // Dart imports:
 
 // Flutter imports:
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/src/provider.dart';
 
@@ -46,12 +46,10 @@ class _SkillListTileState extends State<SkillListTile> {
       groupTag: 'all',
       closeOnScroll: true,
       endActionPane: ActionPane(
-        extentRatio: 0.3,
+        extentRatio: 0.35,
         motion: const BehindMotion(),
         children: [
           SlidableAction(
-            // An action can be bigger than the others.
-
             onPressed: (_) async {
               final id = await context.read<SkillListProvider>().logPractice(
                   widget.id, DateTime.now().millisecondsSinceEpoch);
@@ -73,7 +71,7 @@ class _SkillListTileState extends State<SkillListTile> {
             },
             backgroundColor: Theme.of(context).colorScheme.primary,
             foregroundColor: Theme.of(context).colorScheme.onPrimary,
-            icon: Icons.check,
+            icon: Icons.touch_app,
             label: 'slidableLog'.tr(),
           ),
         ],

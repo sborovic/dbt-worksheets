@@ -1,17 +1,18 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:app/providers/skill_list_provider.dart';
-import 'package:easy_localization/easy_localization.dart';
+// Flutter imports:
 import 'package:flutter/material.dart' as m;
+
+// Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:open_file/open_file.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:open_file/open_file.dart';
-import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:printing/printing.dart';
+import 'package:provider/provider.dart';
 
 void generatePdf(m.BuildContext context) async {
   final defaultFont = await PdfGoogleFonts.notoSerifRegular();

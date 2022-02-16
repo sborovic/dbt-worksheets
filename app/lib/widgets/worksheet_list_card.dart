@@ -25,79 +25,56 @@ class WorksheetListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            leading: const Icon(Icons.segment_rounded),
-            title: Text(
-              title,
+    void navigateToSkills() {
+      final provider = context.read<SkillListProvider>();
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return ChangeNotifierProvider<SkillListProvider>.value(
+              value: provider,
+              child: SkillListScreen(
+                appBarTitle: description,
+              ),
+            );
+          },
+        ),
+      );
+    }
+
+    return InkWell(
+      onTap: navigateToSkills,
+      child: Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              // contentPadding: EdgeInsets.only(top: 8),
+              leading: const Icon(Icons.self_improvement),
+              title: Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(
+                  title,
+                ),
+              ),
+              subtitle: Text(description),
             ),
-            subtitle: Text(description),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              TextButton(
-                child: const Text('buttonReport').tr(),
-                onPressed: () async {
-                  showDateRangePicker(
-                    saveText: 'dateRangePickerSave'.tr(),
-                    useRootNavigator: true,
-                    context: context,
-                    firstDate: DateTime(2022),
-                    lastDate: DateTime.now(),
-                  ).then(
-                    (range) async {
-                      if (range == null) {
-                        return;
-                      }
-                      final reportData = await context
-                          .read<SkillListProvider>()
-                          .generateReport(
-                              range.start.millisecondsSinceEpoch,
-                              range.end.millisecondsSinceEpoch +
-                                  Duration.millisecondsPerDay);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => MultiProvider(
-                            providers: [
-                              Provider<DateTimeRange>.value(value: range),
-                              Provider<List<Map<String, Object?>>>.value(
-                                  value: reportData),
-                            ],
-                            child: const ReportOutputScreen(),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-              const SizedBox(width: 8),
-              TextButton(
-                child: const Text('buttonSkills').tr(),
-                onPressed: () {
-                  final provider = context.read<SkillListProvider>();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return ChangeNotifierProvider<SkillListProvider>.value(
-                          value: provider,
-                          child: SkillListScreen(
-                            appBarTitle: description,
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(width: 8),
-            ],
-          ),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TextButton(
+                  child: const Text('buttonReport').tr(),
+                  onPressed: () => ReportOutputScreen.navigateToReport(context),
+                ),
+                const SizedBox(width: 8),
+                TextButton(
+                  child: const Text('buttonSkills').tr(),
+                  onPressed: navigateToSkills,
+                ),
+                const SizedBox(width: 8),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
