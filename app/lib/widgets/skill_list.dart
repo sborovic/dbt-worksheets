@@ -29,14 +29,14 @@ class _SkillListState extends State<SkillList> {
   @override
   Widget build(BuildContext context) {
     void showButton() {
-      context.read<ShowFABWrapper>().visible = true;
+      context.read<ShowFabProvider>().visible = true;
       setState(() {
         _showButton = true;
       });
     }
 
     void hideButton() {
-      context.read<ShowFABWrapper>().visible = false;
+      context.read<ShowFabProvider>().visible = false;
       setState(() {
         _showButton = false;
       });

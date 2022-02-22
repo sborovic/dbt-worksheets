@@ -1,4 +1,4 @@
-CREATE TABLE mindfulness_worksheet_5a (id INTEGER PRIMARY KEY, parent_id INTEGER, title TEXT, description TEXT, is_leaf INTEGER DEFAULT 0);
+CREATE TABLE mindfulness_worksheet_5a (id INTEGER PRIMARY KEY, parent_id INTEGER, title TEXT, description TEXT, is_leaf INTEGER DEFAULT 0, is_deleted INTEGER DEFAULT 0);
 INSERT INTO mindfulness_worksheet_5a (title, description, parent_id, id) VALUES ('Ček lista za neosuđivanje, potpunu svesnost i učinkovitost', 'Radni list mindfulness 5a', NULL, 0);
 INSERT INTO mindfulness_worksheet_5a (description, parent_id, id) VALUES
 ("Vežbanje neosuđivanja", 0, 1),

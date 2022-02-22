@@ -29,6 +29,7 @@ class EntryScreen extends StatelessWidget {
             moduleName: 'moduleMindfulness'.tr(),
             worksheetTableNames: const [
               'mindfulness_worksheet_4a',
+              'mindfulness_worksheet_5a',
             ],
           ),
         ],

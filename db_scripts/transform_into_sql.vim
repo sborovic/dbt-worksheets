@@ -32,6 +32,6 @@
 "zameni poslednji zarez
 :$s/,$/;/
 "kreiraj tabelu
-:normal ggiCREATE TABLE mindfulness_worksheet_4a (id INTEGER PRIMARY KEY, parent_id INTEGER, title TEXT, description TEXT, is_leaf INTEGER DEFAULT 0);
+:normal ggiCREATE TABLE mindfulness_worksheet_4a (id INTEGER PRIMARY KEY, parent_id INTEGER, title TEXT, description TEXT, is_leaf INTEGER DEFAULT 0, is_deleted INTEGER DEFAULT 0);
 "generisi vrednost is_leaf gde treba
 :normal GoUPDATE mindfulness_worksheet_4a SET is_leaf = 1 WHERE id NOT IN (SELECT DISTINCT parent_id FROM mindfulness_worksheet_4a WHERE parent_id IS NOT NULL);

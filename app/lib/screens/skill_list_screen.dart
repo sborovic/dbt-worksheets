@@ -20,8 +20,8 @@ class SkillListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ShowFABWrapper>(
-      create: (_) => ShowFABWrapper(),
+    return ChangeNotifierProvider<ShowFabProvider>(
+      create: (_) => ShowFabProvider(),
       builder: (context, _) => Scaffold(
         appBar: AppBar(title: Text(appBarTitle)),
         body: Consumer<SkillListProvider>(
@@ -35,7 +35,7 @@ class SkillListScreen extends StatelessWidget {
                 ])));
           },
         ),
-        floatingActionButton: context.watch<ShowFABWrapper>().visible
+        floatingActionButton: context.watch<ShowFabProvider>().visible
             ? FloatingActionButton.extended(
                 onPressed: () {
                   ReportOutputScreen.navigateToReport(context);
@@ -49,7 +49,7 @@ class SkillListScreen extends StatelessWidget {
   }
 }
 
-class ShowFABWrapper extends ChangeNotifier {
+class ShowFabProvider extends ChangeNotifier {
   int counter = 0;
   bool _visible = true;
   bool get visible {
