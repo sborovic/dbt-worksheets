@@ -33,4 +33,4 @@ DBT skills practice is meant to be an everyday activity that can be performed at
 
 
 ## License
-[MIT](https://github.com/sborovic/kdp_lab2/blob/master/LICENSE)
+[MIT](https://github.com/sborovic/dbt-worksheets/blob/master/LICENSE)
